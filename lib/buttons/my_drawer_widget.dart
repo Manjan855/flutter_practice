@@ -10,7 +10,7 @@ class MyWiget extends StatelessWidget {
         children: [
           DrawerHeader(
             child: Column(
-              children: [CircleAvatar(), Text("manjanshi@gmail.com")],
+              children: [CircleAvatar(), Text("manjanshahi@gmail.com")],
             ),
           ),
           ListTile(
