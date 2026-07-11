@@ -38,23 +38,25 @@ class _NewClassState extends State<NewClass> {
               itemCount: number.length,
             ),
           ),
-          GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-            ),
-            itemBuilder: (context, index) {
-              return Container(
-                color: Colors.blue,
-                child: Center(
-                  child: Text(
-                    "Item $index",
-                    style: TextStyle(color: Colors.white, fontSize: 18),
+          Expanded(
+            child: GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+              ),
+              itemBuilder: (context, index) {
+                return Container(
+                  color: Colors.blue,
+                  child: Center(
+                    child: Text(
+                      "Item $index",
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    ),
                   ),
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
         ],
       ),

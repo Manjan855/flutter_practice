@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/app_theme/app_text_style.dart';
 import 'package:flutter_application_1/models/user_models.dart';
 
 class KycScreen extends StatelessWidget {
@@ -8,7 +9,15 @@ class KycScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Column(children: [Text('')]),
+      body: Center(
+        child: Column(
+          children: [
+            Text('Name is ${userModels.name}', style: AppTextStyle.mediumText),
+            Text('Gmail is ${userModels.email}'),
+            Text('Address is ${userModels.address}'),
+          ],
+        ),
+      ),
     );
   }
 }
