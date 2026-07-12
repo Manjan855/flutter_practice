@@ -19,6 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
   String? _name;
 
   String? _address;
+  String? _college;
 
   final _form = GlobalKey<FormState>();
 
@@ -81,6 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       var name = _name;
                       var email = _emailTextEditingController.value.text;
                       var address = _address;
+                      var college = _college;
                       print(
                         "Print final value of form $name, $address, $email",
                       );
@@ -88,6 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         address: _address!,
                         name: _name!,
                         email: email,
+                        college: _college!,
                       );
                       context.push(AppRoute.kyc, extra: user);
                     }

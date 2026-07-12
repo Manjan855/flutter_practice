@@ -15,6 +15,7 @@ class KycScreen extends StatelessWidget {
             Text('Name is ${userModels.name}', style: AppTextStyle.mediumText),
             Text('Gmail is ${userModels.email}'),
             Text('Address is ${userModels.address}'),
+            Text('College is ${userModels.college}')
           ],
         ),
       ),
