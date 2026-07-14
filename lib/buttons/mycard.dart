@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/app_theme/asset.dart';
-import 'package:flutter_application_1/buttons/my_widget.dart';
+import 'package:flutter_practice/app_theme/asset.dart';
+import 'package:flutter_practice/buttons/my_widget.dart';
 
 class Mycards extends StatelessWidget {
   const Mycards({

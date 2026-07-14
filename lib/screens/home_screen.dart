@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/app_theme/app_text_style.dart';
-import 'package:flutter_application_1/models/user_models.dart';
-//import 'package:flutter_application_1/route/AppRoutes.dart';
-import 'package:flutter_application_1/route/app_router.dart';
+import 'package:flutter_practice/app_theme/app_text_style.dart';
+import 'package:flutter_practice/models/user_models.dart';
+//import 'package:flutter_practice/route/AppRoutes.dart';
+import 'package:flutter_practice/core/router/app_router.dart';
 import 'package:go_router/go_router.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -92,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         email: email,
                         college: _college!,
                       );
-                      context.push(AppRoute.kyc, extra: user);
+                     // context.push(AppRoute.kyc, extra: user);
                     }
                   },
                   child: Text("Press Me"),

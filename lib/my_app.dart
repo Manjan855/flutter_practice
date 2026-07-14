@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/app_theme/app_theme.dart';
-import 'package:flutter_application_1/route/AppRoutes.dart';
-// import 'package:flutter_application_1/home_screen.dart';
-// import 'package:flutter_application_1/route/app_route.dart';
-// import 'package:flutter_application_1/display_screen.dart';
-// import 'package:flutter_application_1/product_screen.dart';
+import 'package:flutter_practice/app_theme/app_theme.dart';
+import 'package:flutter_practice/core/router/app_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+// import 'package:flutter_practice/home_screen.dart';
+// import 'package:flutter_practice/route/app_route.dart';
+// import 'package:flutter_practice/display_screen.dart';
+// import 'package:flutter_practice/product_screen.dart';
 // import 'package:go_router/go_router.dart';
-// import 'package:flutter_application_1/Home_Screen.dart';
+// import 'package:flutter_practice/Home_Screen.dart';
 
-// import 'package:flutter_application_1/showing_button.dart';
-// import 'package:flutter_application_1/display_screen.dart';
+// import 'package:flutter_practice/showing_button.dart';
+// import 'package:flutter_practice/display_screen.dart';
 
-// import 'package:flutter_application_1/Home_Screen.dart';
+// import 'package:flutter_practice/Home_Screen.dart';
 // final _router = GoRouter(
 //   routes: [
 //     GoRoute(
@@ -25,15 +26,18 @@ import 'package:flutter_application_1/route/AppRoutes.dart';
 //   ],
 // );
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final router = ref.watch(appRouterProvider);
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      routerConfig: AppRoutes.router,
+      routerConfig: router,
       theme: AppTheme.themeData,
+      
     );
+  
   }
 }

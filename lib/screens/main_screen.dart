@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/buttons/my_drawer_widget.dart';
-import 'package:flutter_application_1/screens/display_screen.dart';
-import 'package:flutter_application_1/screens/home_screen.dart';
-import 'package:flutter_application_1/screens/product_screen.dart';
+import 'package:flutter_practice/buttons/my_drawer_widget.dart';
+import 'package:flutter_practice/screens/display_screen.dart';
+import 'package:flutter_practice/screens/home_screen.dart';
+import 'package:flutter_practice/screens/product_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});

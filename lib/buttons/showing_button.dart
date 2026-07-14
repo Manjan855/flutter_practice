@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/route/app_router.dart';
-import 'package:flutter_application_1/buttons/button_icon.dart';
-//import 'package:flutter_application_1/product_screen.dart';
+import 'package:flutter_practice/core/router/app_router.dart';
+import 'package:flutter_practice/buttons/button_icon.dart';
+//import 'package:flutter_practice/product_screen.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -38,7 +38,7 @@ class _ShowingButtonState extends State<ShowingButton> {
             ButtonIcon(
               onTap: () {
 
-                Navigator.pushNamed(context, AppRoute.display, arguments: 'Manjan');
+                //Navigator.pushNamed(context, AppRoute.display, arguments: 'Manjan');
               },
               icon: FontAwesomeIcons.gauge,
               text: "Google",

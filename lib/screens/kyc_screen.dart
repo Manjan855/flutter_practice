@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/app_theme/app_text_style.dart';
-import 'package:flutter_application_1/models/user_models.dart';
+import 'package:flutter_practice/app_theme/app_text_style.dart';
+import 'package:flutter_practice/models/user_models.dart';
 
 class KycScreen extends StatelessWidget {
   const KycScreen({super.key, required this.userModels});

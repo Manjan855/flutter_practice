@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/buttons/mycard.dart';
+import 'package:flutter_practice/buttons/mycard.dart';
 
 class DisplayScreen extends StatefulWidget {
   const DisplayScreen({super.key});
