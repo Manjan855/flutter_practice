@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_practice/app_theme/app_text_style.dart';
+import 'package:flutter_practice/features/auth/presentation/screens/login_screen.dart';
 import 'package:flutter_practice/models/user_models.dart';
 //import 'package:flutter_practice/route/AppRoutes.dart';
-import 'package:flutter_practice/core/router/app_router.dart';
-import 'package:go_router/go_router.dart';
+// import 'package:flutter_practice/core/router/app_router.dart';
+// import 'package:go_router/go_router.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -92,7 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         email: email,
                         college: _college!,
                       );
-                     // context.push(AppRoute.kyc, extra: user);
+                      // context.push(AppRoute.kyc, extra: user);
                     }
                   },
                   child: Text("Press Me"),
@@ -105,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Text("College"),
                 SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () => LoginScreen(),
                   child: Row(
                     children: [
                       Text("Login"),

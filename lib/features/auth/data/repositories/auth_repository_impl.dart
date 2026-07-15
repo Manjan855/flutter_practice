@@ -4,6 +4,7 @@ import 'package:flutter_practice/core/errors/failures.dart';
 import 'package:flutter_practice/features/auth/data/models/user_mapper.dart';
 import 'package:flutter_practice/features/auth/domain/entities/user_entity.dart';
 import 'package:flutter_practice/features/auth/domain/repositories/auth_repository.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthRepositoryImpl  extends AuthRepository{
   final FirebaseAuth _firebaseAuth;
@@ -36,6 +37,20 @@ Future<Either<Failures,void>> signOut()async{
    return Left(AuthFailure('failed to signOut'));
  } 
   
+}
+@override
+Future<Either<Failures, UserEntity>> signInWithGoogle()async{
+  try{
+    final user = await GoogleSignIn.instance.authenticate();
+    final auth = await user.authentication;
+    final credential =  GoogleAuthProvider.credential(idToken: googleAuth.idToken);
+    final UserCredential = await _firebaseAuth.signInWithCredential(credential);
+    return Right(UserCredential.user!.toEntity());
+  }on GoogleSignInException catch (e){
+    return Left(AuthFailure('Google-sign-is cancelled: ${e.code}'));
+  }on FirebaseAuthException catch (e){
+    return left(AuthFailure(_mapAuthError(e.code)));
+  }
 }
 
   String _mapAuthError(String code) => switch (code){

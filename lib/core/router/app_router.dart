@@ -1,5 +1,6 @@
 import 'package:flutter_practice/features/auth/presentation/providers/auth_providers.dart';
 import 'package:flutter_practice/features/auth/presentation/screens/login_screen.dart';
+import 'package:flutter_practice/screens/home_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -24,6 +25,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
 
     routes: [
       GoRoute(path: '/login', builder: (context, state) => const LoginScreen()),
+      GoRoute(path: '/home', builder: (context, state) => const HomeScreen()),
     ],
   );
 });
