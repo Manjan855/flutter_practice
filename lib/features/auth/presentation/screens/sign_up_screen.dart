@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_practice/features/auth/presentation/providers/auth_providers.dart';
 import 'package:flutter_practice/features/auth/presentation/screens/login_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
-class SignUpScreen extends StatefulWidget {
+class SignUpScreen extends ConsumerStatefulWidget {
   const SignUpScreen({super.key});
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  ConsumerState<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   final _firstName = TextEditingController();
   final _lastName = TextEditingController();
   final _emialCtrl = TextEditingController();
@@ -78,6 +81,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   onPressed: () => LoginScreen(),
                   child: Text('Sign Up'),
                 ),
+          OutlinedButton.icon(
+            icon: const Icon(Icons.g_mobiledata),
+            label: const Text('Sign in with Google'),
+            onPressed: () async {
+              setState(() => _isLoading = true);
+              final result = await ref
+                  .read(authRepositoryProvider)
+                  .signInWithGoogle();
+              if (!mounted) return;
+              setState(() => _isLoading = false);
+              result.fold(
+                (failure) => ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(SnackBar(content: Text(failure.message))),
+                (user) => context.go('/home'),
+              );
+            },
+          ),
         ],
       ),
     );

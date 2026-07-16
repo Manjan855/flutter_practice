@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_practice/core/errors/failures.dart';
 
@@ -17,6 +16,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   final _emialCtrl = TextEditingController();
   final _passCtrl = TextEditingController();
   bool _loading = false;
+  // Future<void> _unsubmit()async{
+  //   setState(() => _loading = false,);
+  //   final result = await ref.read(authStateProvider).signOut(_emialCtrl.text.trim(), _passCtrl.text);
+  //   if(!mounted)return;
+  //   setState(() => _loading = true,);
+  //   result.fold((Failures)=> ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(Failures.message))),(user)=> context.go('/login'));
+  // }
 
   Future<void> _submit() async {
     setState(() => _loading = true);
@@ -72,6 +78,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 if (!mounted) return;
                 setState(() => _loading = false);
                 result.fold(
+                  // ignore: non_constant_identifier_names
                   (Failures) => ScaffoldMessenger.of(
                     context,
                   ).showSnackBar(SnackBar(content: Text(Failures.message))),
