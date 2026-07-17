@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_practice/core/errors/failures.dart';
 
 import 'package:flutter_practice/features/auth/presentation/providers/auth_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -87,6 +89,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               icon: Icon(Icons.g_mobiledata),
               label: Text('Sign in with Google'),
             ),
+            
+           
+           
+           Icon(Icons.g_mobiledata)
           ],
         ),
       ),

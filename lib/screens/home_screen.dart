@@ -1,26 +1,43 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_practice/app_theme/app_text_style.dart';
+import 'package:flutter_practice/features/auth/presentation/providers/auth_providers.dart';
 import 'package:flutter_practice/features/auth/presentation/screens/login_screen.dart';
 import 'package:flutter_practice/models/user_models.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 //import 'package:flutter_practice/route/AppRoutes.dart';
 // import 'package:flutter_practice/core/router/app_router.dart';
 // import 'package:go_router/go_router.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends ConsumerState<HomeScreen> {
   final TextEditingController _emailTextEditingController =
       TextEditingController();
+  bool _loading = false;
 
   String? _name;
 
   String? _address;
   String? _college;
+  Future<void> signOut() async {
+    setState(() => _loading = true);
+    final result = await ref.read(authRepositoryProvider).signOut();
+    if (!mounted) return;
+    setState(() => _loading = false);
+    result.fold(
+      (l) => ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(l.message))),
+      (User) => context.go('/login'),
+    );
+  }
 
   final _form = GlobalKey<FormState>();
 
@@ -105,16 +122,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(height: 20),
                 Text("College"),
                 SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () => LoginScreen(),
-                  child: Row(
-                    children: [
-                      Text("Login"),
-                      SizedBox(width: 20),
-                      Icon(Icons.settings),
-                    ],
-                  ),
-                ),
+                _loading
+                    ? CircularProgressIndicator()
+                    : ElevatedButton(
+                        onPressed: signOut,
+                        child: Row(
+                          children: [
+                            Text("LogOut"),
+                            SizedBox(width: 20),
+                            Icon(Icons.settings),
+                          ],
+                        ),
+                      ),
                 SizedBox(height: 20),
                 Padding(
                   padding: const EdgeInsets.only(left: 20, right: 20),
