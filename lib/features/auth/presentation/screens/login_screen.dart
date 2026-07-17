@@ -92,7 +92,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             
            
            
-           Icon(Icons.g_mobiledata)
+           
           ],
         ),
       ),

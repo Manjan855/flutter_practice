@@ -1,8 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_practice/app_theme/app_text_style.dart';
 import 'package:flutter_practice/features/auth/presentation/providers/auth_providers.dart';
-import 'package:flutter_practice/features/auth/presentation/screens/login_screen.dart';
+// import 'package:flutter_practice/features/auth/presentation/screens/login_screen.dart';
 import 'package:flutter_practice/models/user_models.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -135,6 +135,22 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         ),
                       ),
                 SizedBox(height: 20),
+                ElevatedButton.icon(
+                  onPressed: () async {
+                    setState(() => _loading = true);
+                    final result = await ref
+                        .read(authRepositoryProvider)
+                        .signOut();
+                    if (!mounted) return;
+                    result.fold(
+                      (l) => ScaffoldMessenger.of(
+                        context,
+                      ).showSnackBar(SnackBar(content: Text(l.message))),
+                      (user) => context.go('/login'),
+                    );
+                  },
+                  label: Text('logout'),
+                ),
                 Padding(
                   padding: const EdgeInsets.only(left: 20, right: 20),
                   child: Container(
