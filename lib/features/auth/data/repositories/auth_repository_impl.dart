@@ -55,7 +55,7 @@ class AuthRepositoryImpl extends AuthRepository {
   Future<Either<Failures, UserEntity>> signInWithGoogle() async {
     try {
       final googleUser = await GoogleSignIn.instance.authenticate();
-      final googleAuth = await googleUser.authentication;
+      final googleAuth = googleUser.authentication;
       final credential = GoogleAuthProvider.credential(
         idToken: googleAuth.idToken,
       );
@@ -66,7 +66,7 @@ class AuthRepositoryImpl extends AuthRepository {
     } on GoogleSignInException catch (e) {
       return Left(AuthFailure('Google-sign-is cancelled: ${e.code}'));
     } on FirebaseAuthException catch (e) {
-      return left(AuthFailure(_mapAuthError(e.code)));
+      return left(AuthFailure(_maintainAuthError(e.code)));
     }
   }
 
@@ -77,7 +77,17 @@ class AuthRepositoryImpl extends AuthRepository {
     'weak-password' => 'password is too weak at least 6 char',
     _ => 'Authenticaton failed. Try again.',
   };
+  String _maintainAuthError(String error)=>switch (error){
+'user-not-found' => 'No account found for this eamil',
+'user-does-not-match' => 'User name wrong',
+_ => 'Authentication failed. Try again',
+  };
   @override
   Stream<UserEntity?> get authStateChanges =>
       _firebaseAuth.authStateChanges().map((u) => u?.toEntity());
+      
+      // @override
+      // Stream<UserEntity?> get authCurrentState =>
+      //  _firebaseAuth.authCurrentState().map((u)=> u?.toEntity());
+      
 }
