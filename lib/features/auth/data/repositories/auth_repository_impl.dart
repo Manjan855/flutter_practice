@@ -69,6 +69,10 @@ class AuthRepositoryImpl extends AuthRepository {
       return left(AuthFailure(_maintainAuthError(e.code)));
     }
   }
+  @override
+  Future<Either<Failures, UserEntity>> signWithFacebook()async{
+
+  }
 
   String _mapAuthError(String code) => switch (code) {
     'user-not-found' => 'No account found for this email',
