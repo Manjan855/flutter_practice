@@ -9,7 +9,7 @@ abstract class AuthRepository {
   Future<Either<Failures, UserEntity>> signIn(String email, String password);
   Future<Either<Failures, UserEntity>> signUp(String email, String password);
   Future<Either<Failures, UserEntity>> signInWithGoogle();
-  Future<Either<Failures, UserEntity>> signWithFacebook();
+  Future<Either<Failures, UserEntity>> signInWithFacebook();
   Future<Either<Failures, void>> signOut();
   Stream<UserEntity?> get authStateChanges;
   
