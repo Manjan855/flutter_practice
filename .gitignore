@@ -61,3 +61,6 @@ android/key.properties
 *.p12
 *.cer
 *.pem
+*.cer
+# Facebook config (contains App ID + Client Token)
+android/app/src/main/res/values/strings.xml
