@@ -31,9 +31,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     if (!mounted) return;
     setState(() => _loading = false);
     result.fold(
-      (Failures) => ScaffoldMessenger.of(
+      (failures) => ScaffoldMessenger.of(
         context,
-      ).showSnackBar(SnackBar(content: Text(Failures.message))),
+      ).showSnackBar(SnackBar(content: Text(failures.message))),
       (user) => context.go('/home'),
     );
   }
@@ -81,7 +81,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   (Failures) => ScaffoldMessenger.of(
                     context,
                   ).showSnackBar(SnackBar(content: Text(Failures.message))),
-                  (User) => context.go('/home'),
+                  (user) => context.go('/home'),
                 );
               },
               icon: Icon(Icons.g_mobiledata),
@@ -97,9 +97,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 if (!mounted) return;
                 setState(() => _loading = false);
                 result.fold(
-                  (Failures) => ScaffoldMessenger.of(
+                  (failures) => ScaffoldMessenger.of(
                     context,
-                  ).showSnackBar(SnackBar(content: Text(Failures.message))),
+                  ).showSnackBar(SnackBar(content: Text(failures.message))),
                   (user) => context.go('/home'),
                 );
               },
