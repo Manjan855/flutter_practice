@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_practice/core/errors/failures.dart';
 
 import 'package:flutter_practice/features/auth/presentation/providers/auth_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -105,6 +106,24 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               },
               label: Text('SignIn-with-facebook'),
               icon: Icon(Icons.facebook),
+            ),
+            SizedBox(height: 20),
+            OutlinedButton.icon(
+              onPressed: () async {
+                setState(() => _loading = true);
+                final result = await ref
+                    .watch(authRepositoryProvider)
+                    .signInWithFacebook();
+                if (!mounted) return;
+                setState(() => _loading = false);
+                result.fold(
+                  (failures) => ScaffoldMessenger.of(
+                    context,
+                  ).showSnackBar(SnackBar(content: Text(failures.message))),
+                  (user) => context.go('/home'),
+                );
+              },
+              label: Text('siggn with facebook'),
             ),
           ],
         ),
