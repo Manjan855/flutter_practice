@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_practice/features/auth/presentation/providers/product_provider.dart';
+import 'package:flutter_practice/features/products/presentation/providers/product_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ProductListScreen extends ConsumerWidget {
@@ -18,7 +18,9 @@ class ProductListScreen extends ConsumerWidget {
             itemBuilder: (context, index) {
               final product = products[index];
               return ListTile(
-                leading: Image.network(product.thumpnail, width: 50),
+                leading: product.thumpnail.isNotEmpty
+                    ? Image.network(product.thumpnail, width: 50)
+                    : Icon(Icons.image_not_supported),
                 trailing: Text('\$${product.price}'),
                 title: Text(product.title),
               );

@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_practice/features/auth/data/models/product_model.dart';
+import 'package:flutter_practice/features/products/data/models/product_model.dart';
 
 class ProductRemoteDatasource {
   final Dio _dio;

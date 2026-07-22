@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_practice/features/auth/presentation/providers/auth_providers.dart';
 import 'package:flutter_practice/features/auth/presentation/screens/login_screen.dart';
-import 'package:flutter_practice/features/auth/presentation/screens/product_list_screen.dart';
+import 'package:flutter_practice/features/products/presentation/screens/product_list_screen.dart';
 import 'package:flutter_practice/screens/home_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -28,7 +28,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       final isLoggedIn = FirebaseAuth.instance.currentUser != null;
       final onLoginPage = state.matchedLocation == '/login';
       if (!isLoggedIn && !onLoginPage) return '/login';
-      if (isLoggedIn && !onLoginPage) return '/home';
+      if (isLoggedIn && onLoginPage) return '/home';
       return null;
     },
 

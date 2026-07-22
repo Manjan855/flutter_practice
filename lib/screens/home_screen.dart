@@ -35,7 +35,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       (l) => ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text(l.message))),
-      (User) => context.go('/login'),
+      (user) => context.go('/login'),
     );
   }
 
@@ -102,7 +102,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       var address = _address;
                       var college = _college;
                       print(
-                        "Print final value of form $name, $address, $email",
+                        "Print final value of form $name, $address, $email, $college",
                       );
                       UserModels user = UserModels(
                         address: _address!,
@@ -135,6 +135,17 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         ),
                       ),
                 SizedBox(height: 20),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text('Homed -logged in'),
+                    SizedBox(height: 20),
+                    ElevatedButton(
+                      onPressed: () => context.go('/products'),
+                      child: Text('Veiw Vehicles'),
+                    ),
+                  ],
+                ),
                 ElevatedButton.icon(
                   onPressed: () async {
                     setState(() => _loading = true);
