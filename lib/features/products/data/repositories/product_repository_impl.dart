@@ -6,22 +6,22 @@ import 'package:flutter_practice/features/products/data/datasources/product_remo
 import 'package:flutter_practice/features/products/domain/entities/product_entity.dart';
 import 'package:flutter_practice/features/products/domain/repositories/product_repository.dart';
 
-class ProductRepositoryImpl extends ProductRepository {
+class ProductRepositoryImpl implements ProductRepository {
   final ProductRemoteDatasource _remoteDataSource;
   final ProductLocalDatasource _localDatasource;
-  ProductRepositoryImpl(this._remoteDataSource, productLocalDataSource, this._localDatasource);
+  ProductRepositoryImpl(this._remoteDataSource, this._localDatasource);
   @override
-
   Future<Either<Failures, List<ProductEntity>>> getProducts() async {
     try {
       final products = await _remoteDataSource.fetchProducts();
-       await _localDatasource.cacheProducts(products);// save local data freshly
+      await _localDatasource.cacheProducts(products); // save local data freshly
       return Right(products);
     } on DioException catch (e) {
       // network failed -fall back to cache instead of showing an error
       final cached = await _localDatasource.getCachedProducts();
-      if(cached.isNotEmpty)
-      {return Right(cached);} 
+      if (cached.isNotEmpty) {
+        return Right(cached);
+      }
       return left(ServerFailure('No internet and no cached data available'));
       // return Left(ServerFailure(_mapDioError(e)));
     } catch (e) {

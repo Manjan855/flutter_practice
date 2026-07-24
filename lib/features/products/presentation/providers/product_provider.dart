@@ -13,7 +13,7 @@ final dioProvider = Provider<Dio>((ref)=>DioClient.create());
 final productRepositoryProvider = Provider<ProductRepository>((ref){
   final dio = ref.watch(dioProvider);
   return ProductRepositoryImpl(ProductRemoteDatasource(dio),
- ProductLocalDatasource(),);
+ ProductLocalDatasource());
 
 });
 final productListProvider = FutureProvider<Either<Failures, List<ProductEntity>>>((ref) async{
