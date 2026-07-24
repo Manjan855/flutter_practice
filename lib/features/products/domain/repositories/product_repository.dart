@@ -4,4 +4,5 @@ import 'package:flutter_practice/features/products/domain/entities/product_entit
 
 abstract class ProductRepository {
 Future<Either<Failures, List<ProductEntity>>> getProducts();
+Future<Either<Failures, List<ProductEntity>>> deleteProducts();
 }

@@ -16,7 +16,7 @@ class ProductRepositoryImpl implements ProductRepository {
       final products = await _remoteDataSource.fetchProducts();
       await _localDatasource.cacheProducts(products); // save local data freshly
       return Right(products);
-    } on DioException catch (e) {
+    } on DioException catch (_) {
       // network failed -fall back to cache instead of showing an error
       final cached = await _localDatasource.getCachedProducts();
       if (cached.isNotEmpty) {
@@ -24,9 +24,15 @@ class ProductRepositoryImpl implements ProductRepository {
       }
       return left(ServerFailure('No internet and no cached data available'));
       // return Left(ServerFailure(_mapDioError(e)));
-    } catch (e) {
+    } catch (e, stackTrace) {
+      print('PRODUCT ERROR: $e'); // temporary debug
+      print('STACK: $stackTrace');
       return left(ServerFailure('Unexpencted error occured'));
     }
+  }
+  @override
+  Future<Either<Failures,List<ProductEntity>>> deleteProducts()async{
+    
   }
 
   String _mapDioError(DioException e) => switch (e.type) {
