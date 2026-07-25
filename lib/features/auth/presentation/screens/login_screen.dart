@@ -123,7 +123,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   (user) => context.go('/home'),
                 );
               },
-              label: Text('siggn with facebook'),
+              label: Text('sign with facebook'),
             ),
           ],
         ),

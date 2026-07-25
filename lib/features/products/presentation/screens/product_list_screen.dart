@@ -19,7 +19,12 @@ class ProductListScreen extends ConsumerWidget {
               final product = products[index];
               return ListTile(
                 leading: product.thumbnail.isNotEmpty
-                    ? Image.network(product.thumbnail, width: 50)
+                    ? Image.network(
+                        product.thumbnail,
+                        width: 50,
+                        errorBuilder: (context, error, stackTrace) =>
+                            const Icon(Icons.image_not_supported),
+                      )
                     : Icon(Icons.image_not_supported),
                 trailing: Text('\$${product.price}'),
                 title: Text(product.title),

@@ -14,10 +14,10 @@ class AppDatabase {
     final path = join(dbPath, 'flutter_practice.db');
     return openDatabase(
       path,
-      version: 2,
+      version: 3,
       onCreate: (db, version) async {
         await db.execute(
-          '''CREATE TABLE products(id INTEGER PRIMARY KEY, title TEXT , price REAL, thumpnail TEXT)''',
+          '''CREATE TABLE products(id INTEGER PRIMARY KEY, title TEXT , price REAL, thumbnail TEXT)''',
         );
       },
       onUpgrade: (db, oldVersion, newVersion) async {
