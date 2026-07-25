@@ -7,10 +7,10 @@ class ProductLocalDatasource {
     await db.delete('products'); // clear old cache before saving new one
     for (final product in products) {
       await db.insert('products', {
-        ' id': product.id,
+        'id': product.id,
         'title': product.title,
         'price': product.price,
-        'thumpnail': product.thumpnail,
+        'thumbnail': product.thumbnail,
       });
     }
   }
@@ -24,7 +24,7 @@ class ProductLocalDatasource {
             id: map['id'] as int,
             price: map['price'] as double,
             title: map['title'] as String,
-            thumpnail: map['thumpnail'] as String,
+            thumbnail: map['thumpnail'] as String,
           ),
         )
         .toList();

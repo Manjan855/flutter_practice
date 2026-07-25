@@ -4,7 +4,7 @@ class DioClient {
   static Dio create() {
     final dio = Dio(
       BaseOptions(
-        baseUrl: 'http://192.168.18.228:8000',
+        baseUrl: 'http://192.168.18.17:8000',
         connectTimeout: (Duration(seconds: 30)),
         receiveTimeout: (Duration(seconds: 30)),
       ),
