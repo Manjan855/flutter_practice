@@ -25,8 +25,8 @@ class ProductRepositoryImpl implements ProductRepository {
       return left(ServerFailure('No internet and no cached data available'));
       // return Left(ServerFailure(_mapDioError(e)));
     } catch (e, stackTrace) {
-      print('PRODUCT ERROR: $e'); // temporary debug
-      print('STACK: $stackTrace');
+      // print('PRODUCT ERROR: $e'); // temporary debug
+      // print('STACK: $stackTrace');
       return left(ServerFailure('Unexpencted error occured'));
     }
   }
