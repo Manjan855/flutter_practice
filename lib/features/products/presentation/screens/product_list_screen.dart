@@ -1,6 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_practice/features/products/domain/entities/product_entity.dart';
 import 'package:flutter_practice/features/products/presentation/providers/product_provider.dart';
+import 'package:flutter_practice/features/products/presentation/services/receipt_generator.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:printing/printing.dart';
 
 class ProductListScreen extends ConsumerWidget {
   const ProductListScreen({super.key});
@@ -28,6 +33,10 @@ class ProductListScreen extends ConsumerWidget {
                     : Icon(Icons.image_not_supported),
                 trailing: Text('\$${product.price}'),
                 title: Text(product.title),
+                onTap: () async{
+                  final doc= await ReceiptGenerator.generate(product);
+                  await Printing.layoutPdf(onLayout: (format)=> doc.save());
+                },
               );
             },
           ),
@@ -37,4 +46,5 @@ class ProductListScreen extends ConsumerWidget {
       ),
     );
   }
+ 
 }
