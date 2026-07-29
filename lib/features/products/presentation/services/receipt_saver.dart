@@ -8,7 +8,7 @@ class ReceiptSaver {
   static Future<File> saveReceipt(ProductEntity vehicles)async{
     final doc = await ReceiptGenerator.generate(vehicles);
     final dir = await getApplicationCacheDirectory();
-    final file = File('${dir.path}/receip_${vehicles.id}.pdf');
+    final file = File('${dir.path}/receipt_${vehicles.id}.pdf');
     await file.writeAsBytes(await doc.save());
     return file;
   }

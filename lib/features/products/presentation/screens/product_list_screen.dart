@@ -1,7 +1,5 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_practice/features/products/domain/entities/product_entity.dart';
 import 'package:flutter_practice/features/products/presentation/providers/product_provider.dart';
 import 'package:flutter_practice/features/products/presentation/services/receipt_generator.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
