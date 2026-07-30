@@ -22,7 +22,7 @@ Future<void> _setup()async{
   final dio = Dio();
   final service = KhaltiService(dio);
   final result = await service.initializePayement(amountInPaisa: (widget.vehicle.price * 100).toInt(), purchaseOrderId: 'VEH-${vehicle.purchase.id}', purchaseOrderName: widget.vehicle.title);
-  final payConfig = khaltiPayConfig(
+  final payConfig = KhaltiPayConfig(
     publicKey:'your-test-public-key',
     pidx: result['pidx'],
     environment: Environment.test,
@@ -33,7 +33,7 @@ Future<void> _setup()async{
     onPaymentResult :( result, khaltiIntance){
 print('Status: ${result.payLoad?.status}');
 
-    }
+    },
     onMessage:(khaltiIntance , {description , statusCode, event, needPaymentConfirmation})
    { print('khalti message: $description');},
    onReturn : ()=> print('Return sucessfully'),
