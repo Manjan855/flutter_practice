@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 class KhaltiService{
   final Dio _dio;
   KhaltiService(this._dio);
-  Future<Map<String, dynamic>> initializePayement({
+  Future<Map<String, dynamic>> initiatePayement({
    required int amountInPaisa,
    required String purchaseOrderId,
    required String purchaseOrderName, 
