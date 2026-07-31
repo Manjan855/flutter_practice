@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:khalti_checkout_flutter/khalti_checkout_flutter.dart';
 import 'package:flutter_practice/core/network/khalti_service.dart';
 import 'package:flutter_practice/features/products/domain/entities/product_entity.dart';
 

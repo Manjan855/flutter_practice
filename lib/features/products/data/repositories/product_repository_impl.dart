@@ -24,7 +24,7 @@ class ProductRepositoryImpl implements ProductRepository {
       }
       return left(ServerFailure('No internet and no cached data available'));
       // return Left(ServerFailure(_mapDioError(e)));
-    } catch (e, stackTrace) {
+    } catch (e) {
       // print('PRODUCT ERROR: $e'); // temporary debug
       // print('STACK: $stackTrace');
       return left(ServerFailure('Unexpencted error occured'));
@@ -35,10 +35,10 @@ class ProductRepositoryImpl implements ProductRepository {
     
   // }
 
-  String _mapDioError(DioException e) => switch (e.type) {
-    DioExceptionType.connectionTimeout => 'Connection timed out',
-    DioExceptionType.receiveTimeout => 'Server took too long to response',
-    DioExceptionType.badResponse => 'server error: ${e.response?.statusCode}',
-    _ => 'Network Error. Check Your connection',
-  };
+  // String _mapDioError(DioException e) => switch (e.type) {
+  //   DioExceptionType.connectionTimeout => 'Connection timed out',
+  //   DioExceptionType.receiveTimeout => 'Server took too long to response',
+  //   DioExceptionType.badResponse => 'server error: ${e.response?.statusCode}',
+  //   _ => 'Network Error. Check Your connection',
+  // };
 }
