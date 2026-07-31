@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_practice/core/network/khalti_service.dart';
 import 'package:flutter_practice/features/products/domain/entities/product_entity.dart';
+import 'package:khalti_checkout_flutter/khalti_checkout_flutter.dart' hide KhaltiService;
 
 class PaymentScreen extends StatefulWidget {
   final ProductEntity vehicle;
@@ -23,7 +24,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   Future<Khalti> _setup() async {
     final dio = Dio();
     final service = KhaltiService(dio);
-    final result = await service.initiatePayment(
+    final result = await service.initiatePayement(
       amountInPaisa: (widget.vehicle.price * 100).toInt(),
       purchaseOrderId: 'VEH-${widget.vehicle.id}',
       purchaseOrderName: widget.vehicle.title,
@@ -32,7 +33,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
     final payConfig = KhaltiPayConfig(
       publicKey: 'your-test-public-key',
       pidx: result['pidx'],
-      environment: Environment.test,
+      environment: Environment.test, paymentUrl: '',
     );
 
     return Khalti.init(

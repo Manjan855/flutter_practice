@@ -53,6 +53,7 @@ dependencies:
   google_sign_in: ^7.2.0
   flutter_facebook_auth: ^7.2.0
   path_provider: ^2.1.6
+  khalti_checkout_flutter: ^1.0.0
  
 
 dev_dependencies:
