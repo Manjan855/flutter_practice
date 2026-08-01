@@ -36,11 +36,18 @@ class ProductListScreen extends ConsumerWidget {
                   await Printing.layoutPdf(onLayout: (format)=> doc.save());
                 },
               );
+              
             },
+            
           ),
+        
         ),
         error: (err, _) => Center(child: Text('Error: $err')),
         loading: () => Center(child: CircularProgressIndicator()),
+        ListTile(leading: Image.network(product.thumbnail, width: 50), title: Text(product.title),
+        trailing: Text('\$${product.price}',
+        onTap: () => context.go('/payment', extra: product),
+        ),
       ),
     );
   }

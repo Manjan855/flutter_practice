@@ -4,6 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_practice/features/auth/presentation/providers/auth_providers.dart';
 import 'package:flutter_practice/features/auth/presentation/screens/login_screen.dart';
+import 'package:flutter_practice/features/products/domain/entities/product_entity.dart';
+import 'package:flutter_practice/features/products/presentation/screens/payment_screen.dart';
 import 'package:flutter_practice/features/products/presentation/screens/product_list_screen.dart';
 import 'package:flutter_practice/screens/home_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -35,6 +37,13 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     routes: [
       GoRoute(path: '/login', builder: (context, state) => const LoginScreen()),
       GoRoute(path: '/home', builder: (context, state) => const HomeScreen()),
+      GoRoute(
+        path: '/payment',
+        builder: (context, state) {
+          final vehicle = state.extra as ProductEntity;
+          return PaymentScreen(vehicle: vehicle);
+        },
+      ),
       GoRoute(
         path: '/products',
         builder: (context, state) => ProductListScreen(),
