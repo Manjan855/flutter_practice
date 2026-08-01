@@ -1,8 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_practice/features/products/presentation/providers/product_provider.dart';
 import 'package:flutter_practice/features/products/presentation/services/receipt_generator.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:printing/printing.dart';
 
 class ProductListScreen extends ConsumerWidget {
@@ -31,25 +31,21 @@ class ProductListScreen extends ConsumerWidget {
                     : Icon(Icons.image_not_supported),
                 trailing: Text('\$${product.price}'),
                 title: Text(product.title),
-                onTap: () async{
-                  final doc= await ReceiptGenerator.generate(product);
-                  await Printing.layoutPdf(onLayout: (format)=> doc.save());
+                onTap: () async {
+                  final doc = await ReceiptGenerator.generate(product);
+                  await Printing.layoutPdf(onLayout: (format) => doc.save());
+                  IconButton(
+                    onPressed: () => context.go('/payment'),
+                    icon: Icon(Icons.payment),
+                  );
                 },
               );
-              
             },
-            
           ),
-        
         ),
         error: (err, _) => Center(child: Text('Error: $err')),
         loading: () => Center(child: CircularProgressIndicator()),
-        ListTile(leading: Image.network(product.thumbnail, width: 50), title: Text(product.title),
-        trailing: Text('\$${product.price}',
-        onTap: () => context.go('/payment', extra: product),
-        ),
       ),
     );
   }
- 
 }
