@@ -11,14 +11,15 @@ import 'package:flutter_practice/screens/home_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-// class AppRoute {
-//   static const mainScreen = '/';
-//   static const homeScreen = '/homescreen';
-//   static const product = '/Product_Screen';
-//   static const display = '/Display_screen';
-//   static const showing = '/showingbutton';
-//   static const kyc = '/kyc';
-// }
+class AppRoute {
+  static const mainScreen = '/';
+  static const homeScreen = '/homescreen';
+  static const product = '/Product_Screen';
+  static const display = '/Display_screen';
+  static const showing = '/showingbutton';
+  static const kyc = '/kyc';
+  static const errorscreen = '/errorscreen';
+}
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   final authRepository = ref.watch(authRepositoryProvider);

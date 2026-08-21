@@ -12,7 +12,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  final List<Widget> pages = [HomeScreen(), ProductScreen(), DisplayScreen()];
+  final List<Widget> pages = [HomeScreen(), ProductScreen(productId: '',), DisplayScreen()];
   int currentIndex = 0;
   void changeTap(int index) {
     setState(() {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 //import 'package:flutter_practice/screens/main_screen.dart';
 
 class ProductScreen extends StatefulWidget {
-  const ProductScreen({super.key});
+  const ProductScreen({super.key, required String productId});
 
   @override
   State<ProductScreen> createState() => _ProductScreenState();
