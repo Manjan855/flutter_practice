@@ -241,6 +241,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.0"
+  esewa_flutter:
+    dependency: "direct main"
+    description:
+      name: esewa_flutter
+      sha256: b15104ecd0bce548010e8be9695ad5aa3c4c33614e87bbb881b1598f136580a8
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.1"
   facebook_auth_desktop:
     dependency: transitive
     description:
