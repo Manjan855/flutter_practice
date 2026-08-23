@@ -38,6 +38,7 @@ class ProductListScreen extends ConsumerWidget {
                     onPressed: () => context.go('/payment'),
                     icon: Icon(Icons.payment),
                   );
+                  IconButton(onPressed: ()=>context.go('/esewa-payment'), icon: Icon(Icons.account_balance_outlined));
                 },
               );
             },

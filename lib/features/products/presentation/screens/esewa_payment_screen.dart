@@ -23,7 +23,11 @@ class EsewaPaymentScreen extends StatelessWidget {
         final paymentService = EsewaPayment.dev(paymentData:paymentData);
         paymentService.initiateService(context,
         onSuccess: (EsewaPaymentResponse response){
-          print('Payment Successful',${response.transactionCode});
+          print('Payment Successful:${response.transactionCode}');
+          Navigator.pop(context);
+        },
+        onFailure:(EsewaFailure failure){
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Payment Fails:${failure.message}')));
         });
       }, child: Text('Pay With Esewa')),),
       

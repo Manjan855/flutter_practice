@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_practice/features/products/domain/entities/product_entity.dart';
+import 'package:flutter_practice/features/products/presentation/screens/esewa_payment_screen.dart';
 
 import 'package:flutter_practice/models/user_models.dart';
 import 'package:flutter_practice/core/router/app_router.dart';
@@ -29,6 +31,11 @@ class AppRoutes {
           return KycScreen(userModels: user);
         },
       ),
+      GoRoute(path: '/esewa-payment',
+      builder: (context, state) {
+        final vehicle = state.extra as ProductEntity;
+        return EsewaPaymentScreen(vehicle: vehicle);
+      },)
       GoRoute(
         path: AppRoute.product,
 
