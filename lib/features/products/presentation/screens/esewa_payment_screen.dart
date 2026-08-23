@@ -1,3 +1,4 @@
+import 'package:esewa_flutter/esewa_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_practice/features/products/domain/entities/product_entity.dart';
 
@@ -18,7 +19,14 @@ class EsewaPaymentScreen extends StatelessWidget {
     );
     return Scaffold(
       appBar: AppBar(title: Text('Pay With Esewa'),),
-      body: Center(child: ElevatedButton(onPressed: (){}, child: Text('Pay With Esewa')),),
+      body: Center(child: ElevatedButton(onPressed: (){
+        final paymentService = EsewaPayment.dev(paymentData:paymentData);
+        paymentService.initiateService(context,
+        onSuccess: (EsewaPaymentResponse response){
+          print('Payment Successful',${response.transactionCode});
+        });
+      }, child: Text('Pay With Esewa')),),
+      
     );
   }
 }
