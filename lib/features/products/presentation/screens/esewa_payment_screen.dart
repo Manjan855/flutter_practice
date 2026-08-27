@@ -28,10 +28,10 @@ class EsewaPaymentScreen extends StatelessWidget {
           Navigator.pop(context);
         },
         onFailure:(EsewaFailure failure){
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Payment Fails:${failure.message}')));
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Payment Fails plrsdr tr ytu:${failure.message}')));
         });
-      }, child: Text('Pay With Esewa')),),
-      
+      }, child: Text('Pay With Esewa and be digital')),),
+  
     );
   }
 }
