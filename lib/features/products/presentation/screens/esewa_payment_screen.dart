@@ -1,6 +1,7 @@
 import 'package:esewa_flutter/esewa_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_practice/features/products/domain/entities/product_entity.dart';
+import 'package:injectable/injectable.dart' as EsewaPayment;
 
 
 class EsewaPaymentScreen extends StatelessWidget {
@@ -28,7 +29,7 @@ class EsewaPaymentScreen extends StatelessWidget {
           Navigator.pop(context);
         },
         onFailure:(EsewaFailure failure){
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Payment Fails plrsdr tr ytu:${failure.message}')));
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Payment Fails :${failure.message}')));
         });
       }, child: Text('Pay With Esewa and be digital')),),
   
