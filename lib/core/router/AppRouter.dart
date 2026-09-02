@@ -35,7 +35,7 @@ class AppRoutes {
       builder: (context, state) {
         final vehicle = state.extra as ProductEntity;
         return EsewaPaymentScreen(vehicle: vehicle);
-      },)
+      },),
       GoRoute(
         path: AppRoute.product,
 
@@ -54,7 +54,7 @@ class AppRoutes {
       return Column(
         children: [
           Icon(Icons.broken_image),
-          Center(child: Text("Page Not Found")),
+          Center(child: Text("Page Not Found so try again")),
         ],
       );
     },
