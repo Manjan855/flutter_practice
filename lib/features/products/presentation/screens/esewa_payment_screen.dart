@@ -1,7 +1,7 @@
 import 'package:esewa_flutter/esewa_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_practice/features/products/domain/entities/product_entity.dart';
-import 'package:injectable/injectable.dart' as EsewaPayment;
+import 'package:injectable/injectable.dart' ;
 
 
 class EsewaPaymentScreen extends StatelessWidget {
