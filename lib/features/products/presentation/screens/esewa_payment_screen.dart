@@ -20,12 +20,12 @@ class EsewaPaymentScreen extends StatelessWidget {
       secretKey: '8gBm/:&EnhH.1/q',
     );
     return Scaffold(
-      appBar: AppBar(title: Text('Pay With Esewa'),),
+      appBar: AppBar(title: Text('Pay With Esewa or khalti'),),
       body: Center(child: ElevatedButton(onPressed: (){
         final paymentService = EsewaPayment.dev(paymentData:paymentData);
         paymentService.initiateService(context,
         onSuccess: (EsewaPaymentResponse response){
-          print('Payment Successful:${response.transactionCode}');
+          print('Payment Successful and payment is more secure:${response.transactionCode}');
           Navigator.pop(context);
         },
         onFailure:(EsewaFailure failure){
