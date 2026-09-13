@@ -28,7 +28,7 @@ class EsewaPaymentScreen extends StatelessWidget {
               context,
             ).showSnackBar(SnackBar(content: Text('Payment failed: $message')));
           },
-        ),
+          ),
       ),
     );
   }
