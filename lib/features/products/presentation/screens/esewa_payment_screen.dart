@@ -1,8 +1,6 @@
 import 'package:esewa_flutter/esewa_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_practice/features/products/domain/entities/product_entity.dart';
-import 'package:injectable/injectable.dart' ;
-
 
 class EsewaPaymentScreen extends StatelessWidget {
   final ProductEntity vehicle;
@@ -10,30 +8,28 @@ class EsewaPaymentScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final paymentData = PaymentData(
-      amount: vehicle.price.toString(),
-      taxAmount: '0',
-      totalAmount:vehicle.price.toString(),
-      productCode: 'EPAYTEST',
-       successUrl: 'https://developer.esewa.com.np/success',
-      failureUrl: 'https://developer.esewa.com.np/failure',
-      secretKey: '8gBm/:&EnhH.1/q',
-    );
     return Scaffold(
-      appBar: AppBar(title: Text('Pay With Esewa or khalti'),),
-      body: Center(child: ElevatedButton(onPressed: (){
-        final paymentService = EsewaPayment.dev(paymentData:paymentData);
-        paymentService.initiateService(context,
-        onSuccess: (EsewaPaymentResponse response){
-          print('Payment Successful and payment is more secure:${response.transactionCode}');
-          Navigator.pop(context);
-        },
-        onFailure:(EsewaFailure failure){
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Payment Fails :${failure.message}')));
-        });
-      }, child: Text('Pay With Esewa and be digital and modernize the world')),)
-    
+      appBar: AppBar(title: const Text('Pay With eSewa')),
+      body: Center(
+        child: EsewaPayButton(
+          paymentConfig: ESewaConfig.dev(
+            amount: vehicle.price,
+            successUrl: 'https://developer.esewa.com.np/success',
+            failureUrl: 'https://developer.esewa.com.np/failure',
+            secretKey: '8gBm/:&EnhH.1/q',
+            // productCode defaults to 'EPAYTEST' in dev mode, can omit
+          ),
+          onSuccess: (resp) {
+            print('Payment successful: ${resp.data}');
+            Navigator.pop(context);
+          },
+          onFailure: (message) {
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text('Payment failed: $message')));
+          },
+        ),
+      ),
     );
-    
   }
 }

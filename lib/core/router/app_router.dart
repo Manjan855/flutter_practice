@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_practice/features/auth/presentation/providers/auth_providers.dart';
 import 'package:flutter_practice/features/auth/presentation/screens/login_screen.dart';
 import 'package:flutter_practice/features/products/domain/entities/product_entity.dart';
+import 'package:flutter_practice/features/products/presentation/screens/esewa_payment_screen.dart';
 import 'package:flutter_practice/features/products/presentation/screens/payment_screen.dart';
 import 'package:flutter_practice/features/products/presentation/screens/product_list_screen.dart';
 import 'package:flutter_practice/screens/home_screen.dart';
@@ -48,6 +49,13 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/products',
         builder: (context, state) => ProductListScreen(),
+      ),
+      GoRoute(
+        path: '/esewa-payment',
+        builder: (context, state) {
+          final vehicle = state.extra as ProductEntity;
+          return EsewaPaymentScreen(vehicle: vehicle);
+        },
       ),
     ],
   );
