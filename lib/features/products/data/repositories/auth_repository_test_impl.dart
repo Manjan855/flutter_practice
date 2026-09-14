@@ -1,5 +1,4 @@
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_practice/features/auth/data/repositories/auth_repository_impl.dart';
 
@@ -13,10 +12,7 @@ void main() {
   late MockFirebaseAuth mockFirebaseAuth;
   late AuthRepositoryImpl repository;
 
-  setUp(() {
-    mockFirebaseAuth = MockFirebaseAuth();
-    repository = AuthRepositoryImpl(mockFirebaseAuth);
-  });
+ 
 
   group('signIn', () {
     test('returns Right(UserEntity) when Firebase sign-in succeeds', () async {
