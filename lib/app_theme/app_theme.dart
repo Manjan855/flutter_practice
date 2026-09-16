@@ -8,7 +8,7 @@ class AppTheme {
       displayMedium: TextStyle(fontSize: 19, fontWeight: FontWeight.w500),
       displaySmall: TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
     ),
-    inputDecorationTheme: InputDecoration(
+    inputDecorationTheme: InputDecorationThemeData(
       border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
@@ -16,4 +16,5 @@ class AppTheme {
       ),
     ),
   );
+
 }
