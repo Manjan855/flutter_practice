@@ -31,11 +31,13 @@ class AppRoutes {
           return KycScreen(userModels: user);
         },
       ),
-      GoRoute(path: '/esewa-payment',
-      builder: (context, state) {
-        final vehicle = state.extra as ProductEntity;
-        return EsewaPaymentScreen(vehicle: vehicle);
-      },),
+      GoRoute(
+        path: AppRoute.esewascreen,
+        builder: (context, state) {
+          final vehicle = state.extra as ProductEntity;
+          return EsewaPaymentScreen(vehicle: vehicle);
+        },
+      ),
       GoRoute(
         path: AppRoute.product,
 

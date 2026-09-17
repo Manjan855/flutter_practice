@@ -20,6 +20,7 @@ class AppRoute {
   static const showing = '/showingbutton';
   static const kyc = '/kyc';
   static const errorscreen = '/errorscreen';
+  static const esewascreen = '/esewapaymentscreen';
 }
 
 final appRouterProvider = Provider<GoRouter>((ref) {
@@ -39,19 +40,19 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     routes: [
       GoRoute(path: '/login', builder: (context, state) => const LoginScreen()),
       GoRoute(path: '/home', builder: (context, state) => const HomeScreen()),
+      // GoRoute(
+      //   path: '/payment',
+      //   builder: (context, state) {
+      //     final vehicle = state.extra as ProductEntity;
+      //     return PaymentScreen(vehicle: vehicle);
+      //   },
+      // ),
       GoRoute(
-        path: '/payment',
-        builder: (context, state) {
-          final vehicle = state.extra as ProductEntity;
-          return PaymentScreen(vehicle: vehicle);
-        },
-      ),
-      GoRoute(
-        path: '/products',
+        path: '/product',
         builder: (context, state) => ProductListScreen(),
       ),
       GoRoute(
-        path: '/esewa-payment',
+        path: '/esewascreen',
         builder: (context, state) {
           final vehicle = state.extra as ProductEntity;
           return EsewaPaymentScreen(vehicle: vehicle);

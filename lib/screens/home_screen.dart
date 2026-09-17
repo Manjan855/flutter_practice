@@ -144,6 +144,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       onPressed: () => context.go('/products'),
                       child: Text('Veiw Vehicles'),
                     ),
+                    ElevatedButton(
+                      onPressed: () => context.go('/esewascreen'),
+                      child: Text('paymentScreen'),
+                    ),
                   ],
                 ),
                 ElevatedButton.icon(
