@@ -4,7 +4,7 @@ import 'package:flutter_practice/features/products/data/models/product_model.dar
 class ProductLocalDatasource {
   Future<void> cacheProducts(List<ProductModel> products) async {
     final db = await AppDatabase.instance;
-    await db.delete('products'); // clear old cache before saving new one
+    await db.delete('products');
     for (final product in products) {
       await db.insert('products', {
         'id': product.id,
@@ -18,15 +18,6 @@ class ProductLocalDatasource {
   Future<List<ProductModel>> getCachedProducts() async {
     final db = await AppDatabase.instance;
     final maps = await db.query('products');
-    return maps
-        .map(
-          (map) => ProductModel(
-            id: map['id'] as int,
-            price: map['price'] as double,
-            title: map['title'] as String,
-            thumbnail: map['thumbnail'] as String,
-          ),
-        )
-        .toList();
+    return maps.map((map) => ProductModel.fromJson(map)).toList();
   }
 }
