@@ -24,7 +24,7 @@ class ProductLocalDatasource {
             id: map['id'] as int,
             price: map['price'] as double,
             title: map['title'] as String,
-            thumbnail: map['thumpnail'] as String,
+            thumbnail: map['thumbnail'] as String,
           ),
         )
         .toList();

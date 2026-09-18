@@ -40,21 +40,23 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     routes: [
       GoRoute(path: '/login', builder: (context, state) => const LoginScreen()),
       GoRoute(path: '/home', builder: (context, state) => const HomeScreen()),
-      // GoRoute(
-      //   path: '/payment',
-      //   builder: (context, state) {
-      //     final vehicle = state.extra as ProductEntity;
-      //     return PaymentScreen(vehicle: vehicle);
-      //   },
-      // ),
+      GoRoute(
+        path: '/payment',
+        builder: (context, state) {
+          final vehicle = state.extra as ProductEntity;
+          return PaymentScreen(vehicle: vehicle);
+        },
+      ),
       GoRoute(
         path: '/product',
         builder: (context, state) => ProductListScreen(),
       ),
       GoRoute(
-        path: '/esewascreen',
+        path: '/esewapaymentscreen',
         builder: (context, state) {
-          final vehicle = state.extra as ProductEntity;
+          final vehicle = state.extra as ProductEntity?;
+          if (vehicle == null) return ProductListScreen();
+
           return EsewaPaymentScreen(vehicle: vehicle);
         },
       ),
