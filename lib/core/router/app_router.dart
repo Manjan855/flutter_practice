@@ -20,7 +20,7 @@ class AppRoute {
   static const showing = '/showingbutton';
   static const kyc = '/kyc';
   static const errorscreen = '/errorscreen';
-  static const esewascreen = '/esewapaymentscreen';
+  static const esewascreen = '/esewascreen';
 }
 
 final appRouterProvider = Provider<GoRouter>((ref) {
@@ -52,7 +52,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => ProductListScreen(),
       ),
       GoRoute(
-        path: '/esewapaymentscreen',
+        path: '/esewascreen',
         builder: (context, state) {
           final vehicle = state.extra as ProductEntity?;
           if (vehicle == null) return ProductListScreen();
