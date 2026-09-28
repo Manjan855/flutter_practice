@@ -71,7 +71,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
-              label: Text('First Name'),
+              label: Text('last Name'),
             ),
           ),
           SizedBox(height: 24),

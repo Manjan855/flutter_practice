@@ -120,7 +120,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 SizedBox(height: 20),
                 Text("Address"),
                 SizedBox(height: 20),
-                Text("College"),
+                Text("College Or University"),
                 SizedBox(height: 20),
                 _loading
                     ? CircularProgressIndicator()
@@ -164,7 +164,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       (user) => context.go('/login'),
                     );
                   },
-                  label: Text('logout'),
+                  label: Text('Logout'),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 20, right: 20),
