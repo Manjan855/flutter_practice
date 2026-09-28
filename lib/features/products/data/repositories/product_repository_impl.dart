@@ -30,15 +30,15 @@ class ProductRepositoryImpl implements ProductRepository {
       return left(ServerFailure('Unexpencted error occured'));
     }
   }
-  // @override
-  // Future<Either<Failures,List<ProductEntity>>> deleteProducts()async{
+  @override
+  Future<Either<Failures,List<ProductEntity>>> deleteProducts()async{
     
-  // }
+  }
 
-  // String _mapDioError(DioException e) => switch (e.type) {
-  //   DioExceptionType.connectionTimeout => 'Connection timed out',
-  //   DioExceptionType.receiveTimeout => 'Server took too long to response',
-  //   DioExceptionType.badResponse => 'server error: ${e.response?.statusCode}',
-  //   _ => 'Network Error. Check Your connection',
-  // };
+  String _mapDioError(DioException e) => switch (e.type) {
+    DioExceptionType.connectionTimeout => 'Connection timed out',
+    DioExceptionType.receiveTimeout => 'Server took too long to response',
+    DioExceptionType.badResponse => 'server error: ${e.response?.statusCode}',
+    _ => 'Network Error. Check Your connection',
+  };
 }
