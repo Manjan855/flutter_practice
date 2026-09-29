@@ -1,14 +1,12 @@
-// import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_practice/app_theme/app_text_style.dart';
 import 'package:flutter_practice/features/auth/presentation/providers/auth_providers.dart';
-// import 'package:flutter_practice/features/auth/presentation/screens/login_screen.dart';
+
 import 'package:flutter_practice/models/user_models.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-//import 'package:flutter_practice/route/AppRoutes.dart';
-// import 'package:flutter_practice/core/router/app_router.dart';
-// import 'package:go_router/go_router.dart';
+
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
