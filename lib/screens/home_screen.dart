@@ -126,7 +126,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         onPressed: signOut,
                         child: Row(
                           children: [
-                            Text("LogOut"),
+                            Text("LogOut or signOut"),
                             SizedBox(width: 20),
                             Icon(Icons.settings),
                           ],
@@ -140,7 +140,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: () => context.go('/products'),
-                      child: Text('Veiw Vehicles'),
+                      child: Text('Veiw Vehicles list'),
                     ),
                     ElevatedButton(
                       onPressed: () => context.go('/esewascreen'),
