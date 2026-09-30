@@ -37,7 +37,7 @@ class _ProductScreenState extends State<ProductScreen> {
             child: Text("decrement"),
           ),
           Text(
-            "My Name is Manjan Shahi. I am a developer who can developer mobile app",
+            "My Name is Manjan Shahi. I am a developer who can developer mobile app , i will mobile app that will widely use worldwide",
             style: Theme.of(context).textTheme.displaySmall,
           ),
           Text(
