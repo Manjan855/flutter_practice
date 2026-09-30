@@ -219,25 +219,25 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     ),
                   ),
                 ),
-                // SizedBox(height: 20),
-                // Padding(
-                //   padding: const EdgeInsets.only(left: 20, right: 20),
-                //   child: Container(
-                //     height: 30,
-                //     width: double.infinity,
-                //     decoration: BoxDecoration(
-                //       color: Color.fromARGB(255, 17, 174, 75),
-                //       borderRadius: BorderRadius.all(Radius.circular(8)),
-                //     ),
-                //     child: Text(
-                //       "It is  voilet color color",
-                //       style: TextStyle(
-                //         fontSize: 19,
-                //         fontWeight: FontWeight(600),
-                //       ),
-                //     ),
-                //   ),
-                // ),
+                SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.only(left: 20, right: 20),
+                  child: Container(
+                    height: 30,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(255, 17, 174, 75),
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                    ),
+                    child: Text(
+                      "It is  voilet color color",
+                      style: TextStyle(
+                        fontSize: 19,
+                        fontWeight: FontWeight(600),
+                      ),
+                    ),
+                  ),
+                ),
                 SizedBox(height: 20),
                 Row(
                   children: [
