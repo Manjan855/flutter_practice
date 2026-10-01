@@ -275,7 +275,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       borderRadius: BorderRadius.all(Radius.circular(8)),
                     ),
                     child: Text(
-                      "It is  gray color",
+                      "It is   gray color, I don't like greay color  i like blue and green color.",
                       style: TextStyle(
                         fontSize: 19,
                         fontWeight: FontWeight(600),
@@ -321,9 +321,9 @@ class kTextFormField extends StatelessWidget {
       ),
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return "please enter your email";
+          return "please enter your email that must be valid";
         } else if (value.contains("@gmail.com")) {
-          return 'Enter you correct email';
+          return 'Enter you correct email, with corrent standard';
         }
         return null;
       },
