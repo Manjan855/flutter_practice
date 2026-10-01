@@ -34,6 +34,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       (user) => context.go('/login'),
     );
   }
+  Future<void> signOut() async {
+    setState(()=>_loading = true);
+    final result = await ref.read(authRepositoryProvider)
+    if(!mounted)return;
+    setState(() => _loading =false,);
+    result.fold(result
+    (l) => ScaffoldMessenger.of(context, ).showSnackBar(SnackBar(content: Text(l.message))), (user)=> context.go('/login'));
+  }
 
   final _form = GlobalKey<FormState>();
 
