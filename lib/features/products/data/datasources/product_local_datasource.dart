@@ -20,4 +20,10 @@ class ProductLocalDatasource {
     final maps = await db.query('products');
     return maps.map((map) => ProductModel.fromJson(map)).toList();
   }
+  //practice
+  Future<List<ProductModel>> ungetCachedProducts() async {
+    final db = await AppDatabase.instance;
+    final maps = await db.query('products');
+    return maps.map((map)=> ProductModel.fromJson(map)).toList();
+  }
 }
