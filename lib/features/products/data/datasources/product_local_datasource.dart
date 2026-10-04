@@ -27,9 +27,9 @@ class ProductLocalDatasource {
     final maps = await db.query('products');
     return maps.map((map)=> ProductModel.fromJson(map)).toList();
   }
-   Future<List<ProductModel>> getDeleteProduct() async{
-    final db = await AppDatabase.instance;
-    final maps = await db.query('products');
-    return db = await db.delete('products');
-   }
+  //  Future<List<ProductModel>> getDeleteProduct() async{
+  //   final db = await AppDatabase.instance;
+  //   final maps = await db.query('products');
+  //   return db = await db.delete('products');
+  //  }
 }
