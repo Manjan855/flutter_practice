@@ -97,6 +97,20 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     ),
                   ),
                 ),
+                TextFormField(
+                  onSaved: (newvalue) {
+                    _address = newvalue;
+                    print('Address $_address');
+                  },
+
+                  decoration: InputDecoration(
+                    hint: Text("address", style: AppTextStyle.smallText),
+                    prefixIcon: Icon(Icons.home),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                ),
                 ElevatedButton(
                   onPressed: () {
                     if (_form.currentState!.validate()) {
