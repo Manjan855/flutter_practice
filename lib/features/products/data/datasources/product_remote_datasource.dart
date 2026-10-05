@@ -18,4 +18,10 @@ class ProductRemoteDatasource {
     final List<dynamic> productsJson = response.data['product'];
     return productsJson.map((json) => ProductModel.fromJson(json)).toList();
   }
+  //practice 
+  Future<List<ProductModel>> deleteProduts()async{
+    final response = await _dio.get('/vehicles');
+    final List<dynamic> productsJson = response.data['products'];
+    return productsJson.map((json)=> ProductModel.fromJson(json)).toList();
+  }
 }
