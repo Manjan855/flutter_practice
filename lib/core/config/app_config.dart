@@ -46,7 +46,7 @@ class AppConfig {
   // 2. Built-in development defaults. These keep the app runnable on a fresh
   //    clone with no configuration at all.
   // ---------------------------------------------------------------------------
-  static const String _devApiBaseUrl = 'http://192.168.18.17:8000';
+  static const String _devApiBaseUrl = 'http://192.168.18.237:8000';
   static const String _devKhaltiBaseUrl =
       'https://aapi.khalti.com/api/v2';
   static const String _devKhaltiPublicKey = '';

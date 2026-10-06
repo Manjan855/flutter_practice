@@ -54,7 +54,7 @@ class ProductListScreen extends ConsumerWidget {
                   child: ListView.separated(
                     physics: const AlwaysScrollableScrollPhysics(),
                     itemCount: products.length,
-                    separatorBuilder: (_, __) => const Divider(height: 1),
+                    separatorBuilder: (_, _) => const Divider(height: 1),
                     itemBuilder: (context, index) {
                       final product = products[index];
                       return ListTile(

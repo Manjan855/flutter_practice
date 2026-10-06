@@ -54,7 +54,7 @@ class _EsewaPaymentScreenState extends State<EsewaPaymentScreen> {
 
   Future<void> _issueReceipt() async {
     if (_issuingReceipt) return;
-    _issuingReceipt = true;
+    if (mounted) setState(() => _issuingReceipt = true);
 
     try {
       final path = await ReceiptSaver.saveAndPreview(
@@ -63,7 +63,12 @@ class _EsewaPaymentScreenState extends State<EsewaPaymentScreen> {
         transactionId: _transactionId,
         paidAt: DateTime.now(),
       );
-      if (mounted) setState(() => _receiptSaved = path);
+      if (mounted) {
+        setState(() => _receiptSaved = path);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Receipt saved to $path')),
+        );
+      }
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(
@@ -71,7 +76,7 @@ class _EsewaPaymentScreenState extends State<EsewaPaymentScreen> {
         ).showSnackBar(SnackBar(content: Text('Could not create the receipt: $e')));
       }
     } finally {
-      _issuingReceipt = false;
+      if (mounted) setState(() => _issuingReceipt = false);
     }
   }
 

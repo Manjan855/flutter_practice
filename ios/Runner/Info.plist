@@ -45,5 +45,62 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+
+	<!--
+	  URL schemes: required for Google Sign-In and Facebook Login to hand the
+	  user back to this app.
+
+	  Google: the REVERSED form of the iOS OAuth client ID, which must match
+	          `iosClientId` in lib/firebase_options.dart.
+	  Facebook: "fb" + the App ID, and must match FacebookAppID below and
+	          android/app/src/main/res/values/strings.xml.
+	-->
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>google</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.576110577606-7b3qh3vs04i16pd2pukm3fg6choe4sbc</string>
+				<string>com.example.flutterApplication1</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>facebook</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb1741378883552772</string>
+			</array>
+		</dict>
+	</array>
+
+	<!-- Third-party apps this app may hand off to. -->
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>googleguts</string>
+		<string>google</string>
+		<string>googleapis</string>
+		<string>googleusercontent</string>
+		<string>fbapi</string>
+		<string>fbauth2</string>
+		<string>fb-messenger-share-extension</string>
+		<string>fbshareextension</string>
+	</array>
+
+	<!-- Facebook SDK. PLACEHOLDER values - replace with your own from
+	     https://developers.facebook.com/apps/ and keep them in sync with
+	     android/app/src/main/res/values/strings.xml and your .env file. -->
+	<key>FacebookAppID</key>
+	<string>1741378883552772</string>
+	<key>FacebookClientToken</key>
+	<string>700b9da7002154e86e98006d81047d9f</string>
+	<key>FacebookDisplayName</key>
+	<string>Flutter Application 1</string>
 </dict>
 </plist>

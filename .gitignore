@@ -43,9 +43,19 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
-# Secrets
-.env
-.env.*
+# Configuration
+#
+# `.env` IS committed on purpose: Flutter can only read files that are listed
+# as assets (see pubspec.yaml), and a fresh clone must build without a manual
+# copy step. It therefore contains only non-secret development defaults.
+#
+# Real secrets never belong here - they live in git-ignored native files:
+#   android/app/src/main/res/values/strings.xml   (Facebook App ID / token)
+#   android/app/google-services.json              (Firebase)
+#   ios/Runner/GoogleService-Info.plist           (Firebase)
+# or are injected at build time with --dart-define (see .env.example).
+.env.local
+.env.*.local
 !.env.example
 
 # Firebase config
@@ -62,5 +72,9 @@ android/key.properties
 *.cer
 *.pem
 *.cer
-# Facebook config (contains App ID + Client Token)
-android/app/src/main/res/values/strings.xml
+# Facebook config
+#
+# android/app/src/main/res/values/strings.xml is deliberately NOT ignored.
+# Facebook's App ID and Client Token are public-by-design (they ship inside
+# every app binary), and AndroidManifest.xml hard-references them - so a
+# fresh clone must contain them or the build breaks.

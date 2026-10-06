@@ -25,11 +25,13 @@ class _PaymentScreenState extends State<PaymentScreen> {
   _KhaltiPhase _phase = _KhaltiPhase.idle;
   String? _statusMessage;
   String? _transactionId;
-  String? _receiptPath;
   bool _issuingReceipt = false;
 
   bool get _busy =>
       _phase == _KhaltiPhase.initializing || _phase == _KhaltiPhase.opening;
+
+  /// Whether the Khalti public key has been supplied via .env / --dart-define.
+  bool get _khaltiConfigured => AppConfig.isKhaltiConfigured;
 
   /// Khalti issues `test_public_key_...` / `live_public_key_...`, which decides
   /// which environment the checkout SDK must run against.
@@ -45,7 +47,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
       _phase = _KhaltiPhase.initializing;
       _statusMessage = null;
       _transactionId = null;
-      _receiptPath = null;
     });
 
     try {
@@ -77,7 +78,18 @@ class _PaymentScreenState extends State<PaymentScreen> {
             }) async {
               // Khalti reports informational and error messages here. Only the
               // ones that change the outcome are surfaced to the user.
-              if (!mounted || description == null) return;
+              if (!mounted) return;
+
+              // The web view was dismissed without producing a result - drop
+              // back to idle so the user can try again.
+              if (event == KhaltiEvent.kpgDisposed) {
+                if (_phase == _KhaltiPhase.opening) {
+                  setState(() => _phase = _KhaltiPhase.idle);
+                }
+                return;
+              }
+
+              if (description == null) return;
               final text = description.toString();
               final isFailure =
                   event == KhaltiEvent.networkFailure ||
@@ -141,7 +153,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
     String? transactionId,
   }) async {
     if (_issuingReceipt) return;
-    _issuingReceipt = true;
+    if (mounted) setState(() => _issuingReceipt = true);
 
     try {
       final path = await ReceiptSaver.saveAndPreview(
@@ -151,7 +163,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
         paidAt: DateTime.now(),
       );
       if (mounted) {
-        setState(() => _receiptPath = path);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Receipt saved to $path')),
         );
@@ -163,7 +174,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
         );
       }
     } finally {
-      _issuingReceipt = false;
+      if (mounted) setState(() => _issuingReceipt = false);
     }
   }
 
@@ -258,7 +269,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
             ),
             const SizedBox(height: 12),
             TextButton.icon(
-              onPressed: _busy ? null : _reset,
+              // Deliberately NOT gated on `_busy`: if the checkout web view is
+              // dismissed without a result the phase can stay `opening`, and a
+              // disabled Reset button would lock the whole screen.
+              onPressed: _phase == _KhaltiPhase.initializing ? null : _reset,
               icon: const Icon(Icons.refresh),
               label: const Text('Reset payment state'),
             ),
@@ -296,7 +310,7 @@ class _VehicleSummary extends StatelessWidget {
                     width: 72,
                     height: 72,
                     fit: BoxFit.cover,
-                    errorBuilder: (_, __, ___) =>
+                    errorBuilder: (_, _, _) =>
                         const Icon(Icons.directions_car, size: 56),
                   ),
           ),

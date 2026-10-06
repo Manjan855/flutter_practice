@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+      Facebook SDK strings, referenced by AndroidManifest.xml as
+      @string/facebook_app_id / @string/facebook_client_token.
+
+      These values are NOT secrets: Facebook's design puts the App ID and
+      Client Token inside every app binary, so this file is committed and a
+      fresh clone builds without any copy step.
+
+      Replace both values with your own from
+      https://developers.facebook.com/apps/ -> Settings -> Basic, and keep
+      FACEBOOK_APP_ID / FACEBOOK_CLIENT_TOKEN in .env in sync with them so the
+      Dart side and the native SDK agree.
+    -->
+    <string name="facebook_app_id">1741378883552772</string>
+    <string name="facebook_client_token">700b9da7002154e86e98006d81047d9f</string>
+</resources>

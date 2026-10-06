@@ -1,5 +1,5 @@
 name: flutter_practice
-description: "A new Flutter project."
+description: "Vehicle booking demo - Firebase auth, offline catalogue, Khalti/eSewa payments and PDF receipts."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -44,11 +44,8 @@ dependencies:
   flutter_dotenv: ^6.0.1
   sqflite: ^2.4.3
   path: ^1.9.1
-  cloud_firestore: ^6.6.0
   flutter_riverpod: ^3.3.2
   dartz: ^0.10.1
-  get_it: ^9.2.1
-  injectable: ^3.0.0
   dio: ^5.10.0
   google_sign_in: ^7.2.0
   flutter_facebook_auth: ^7.2.0
@@ -80,9 +77,11 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
-  # To add assets to your application, add an assets section, like this:
+  # Declare the whole `assets/` directory (and the local .env) so every
+  # bundled file resolves - listing individual images silently drops the rest.
   assets:
-    - assets/greenary.jpg
+    - assets/
+    - .env
     
 
   # An image asset can refer to one or more resolution-specific "variants", see
