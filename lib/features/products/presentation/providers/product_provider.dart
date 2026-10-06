@@ -9,13 +9,23 @@ import 'package:flutter_practice/features/products/domain/entities/product_entit
 import 'package:flutter_practice/features/products/domain/repositories/product_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final dioProvider = Provider<Dio>((ref)=>DioClient.create());
-final productRepositoryProvider = Provider<ProductRepository>((ref){
-  final dio = ref.watch(dioProvider);
-  return ProductRepositoryImpl(ProductRemoteDatasource(dio),
- ProductLocalDatasource());
+/// HTTP client for the products API (base URL comes from AppConfig).
+final dioProvider = Provider<Dio>((ref) => DioClient.create());
 
+/// Binds the remote data source and the SQLite cache together.
+final productRepositoryProvider = Provider<ProductRepository>((ref) {
+  final dio = ref.watch(dioProvider);
+  return ProductRepositoryImpl(
+    ProductRemoteDatasource(dio),
+    ProductLocalDatasource(),
+  );
 });
-final productListProvider = FutureProvider<Either<Failures, List<ProductEntity>>>((ref) async{
-return ref.watch(productRepositoryProvider).getProducts();
-});
+
+/// The vehicle catalogue.
+///
+/// Refresh with `ref.invalidate(productListProvider)` - that re-runs the body
+/// below, which performs a fresh network call and rewrites the local cache.
+final productListProvider =
+    FutureProvider<Either<Failures, List<ProductEntity>>>((ref) {
+      return ref.watch(productRepositoryProvider).getProducts();
+    });

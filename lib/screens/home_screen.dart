@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_practice/app_theme/app_text_style.dart';
+import 'package:flutter_practice/core/router/app_router.dart';
 import 'package:flutter_practice/features/auth/presentation/providers/auth_providers.dart';
-
 import 'package:flutter_practice/models/user_models.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+/// Landing page after authentication.
+///
+/// Holds the KYC details form and quick links into the rest of the app.
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
@@ -14,291 +16,238 @@ class HomeScreen extends ConsumerStatefulWidget {
 }
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
-  final TextEditingController _emailTextEditingController =
-      TextEditingController();
-  bool _loading = false;
+  final _formKey = GlobalKey<FormState>();
+  final _nameController = TextEditingController();
+  final _addressController = TextEditingController();
+  final _collegeController = TextEditingController();
 
-  String? _name;
+  bool _signingOut = false;
 
-  String? _address;
-  String? _college;
-  Future<void> signOut() async {
-    setState(() => _loading = true);
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _addressController.dispose();
+    _collegeController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _signOut() async {
+    if (_signingOut) return;
+    setState(() => _signingOut = true);
+
     final result = await ref.read(authRepositoryProvider).signOut();
+
     if (!mounted) return;
-    setState(() => _loading = false);
+    setState(() => _signingOut = false);
+
+    // On success GoRouter's redirect sends the user to /login, so we only
+    // need to report failures.
     result.fold(
-      (l) => ScaffoldMessenger.of(
+      (failure) => ScaffoldMessenger.of(
         context,
-      ).showSnackBar(SnackBar(content: Text(l.message))),
-      (user) => context.go('/login'),
+      ).showSnackBar(SnackBar(content: Text(failure.message))),
+      (_) => context.go(AppRoute.login),
     );
   }
- 
-  final _form = GlobalKey<FormState>();
+
+  void _reviewDetails() {
+    FocusScope.of(context).unfocus();
+    if (!(_formKey.currentState?.validate() ?? false)) return;
+
+    // The email belongs to the authenticated account, not to the KYC form.
+    final accountEmail =
+        ref.read(authStateProvider).value?.email ?? 'unknown@example.com';
+
+    final user = UserModels(
+      name: _nameController.text.trim(),
+      address: _addressController.text.trim(),
+      email: accountEmail,
+      college: _collegeController.text.trim(),
+    );
+
+    context.push(AppRoute.kyc, extra: user);
+  }
 
   @override
   Widget build(BuildContext context) {
+    final authState = ref.watch(authStateProvider);
+
     return Scaffold(
-      appBar: AppBar(centerTitle: true, title: Text("My First App")),
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text('Vehicle Booking'),
+        actions: [
+          IconButton(
+            tooltip: 'Sign out',
+            onPressed: _signingOut ? null : _signOut,
+            icon: const Icon(Icons.logout),
+          ),
+        ],
+      ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(12),
-          child: Form(
-            key: _form,
-            child: Column(
-              spacing: 15,
-              children: [
-                TextFormField(
-                  onSaved: (newvalue) {
-                    _name = newvalue;
-                    print('Name is $_name');
-                  },
-                  decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.person),
-                    label: Text("Name", style: AppTextStyle.mediumText),
-                    hintText: "Please enter the name",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                ),
-                kTextFormField(
-                  hintText: "enter the second email",
-                  emailTextEditingController: _emailTextEditingController,
-                  prefixIcon: Icon(Icons.email),
-                  label: 'second email',
-                ),
-                kTextFormField(
-                  hintText: "enter the email",
-                  emailTextEditingController: _emailTextEditingController,
-                  prefixIcon: Icon(Icons.hotel),
-                  label: 'email',
-                ),
-                TextFormField(
-                  onSaved: (newvalue) {
-                    _address = newvalue;
-                    print('Address $_address');
-                  },
-
-                  decoration: InputDecoration(
-                    hint: Text("address", style: AppTextStyle.smallText),
-                    prefixIcon: Icon(Icons.home),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                ),
-                TextFormField(
-                  onSaved: (newvalue) {
-                    _address = newvalue;
-                    print('Address $_address');
-                  },
-
-                  decoration: InputDecoration(
-                    hint: Text("address", style: AppTextStyle.smallText),
-                    prefixIcon: Icon(Icons.home),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    if (_form.currentState!.validate()) {
-                      _form.currentState!.save();
-                      var name = _name;
-                      var email = _emailTextEditingController.value.text;
-                      var address = _address;
-                      var college = _college;
-                      print(
-                        "Print final value of form $name, $address, $email, $college",
-                      );
-                      UserModels user = UserModels(
-                        address: _address!,
-                        name: _name!,
-                        email: email,
-                        college: _college!,
-                      );
-                      // context.push(AppRoute.kyc, extra: user);
-                    }
-                  },
-                  child: Text("Press Me"),
-                ),
-                SizedBox(height: 20),
-                Text("Name"),
-                SizedBox(height: 20),
-                Text("Address"),
-                SizedBox(height: 20),
-                Text("College Or University"),
-                SizedBox(height: 20),
-                _loading
-                    ? CircularProgressIndicator()
-                    : ElevatedButton(
-                        onPressed: signOut,
-                        child: Row(
-                          children: [
-                            Text("LogOut or signOut"),
-                            SizedBox(width: 20),
-                            Icon(Icons.settings),
-                          ],
-                        ),
-                      ),
-                SizedBox(height: 20),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text('Homed -logged in'),
-                    SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: () => context.go('/products'),
-                      child: Text('Veiw Vehicles list'),
-                    ),
-                    ElevatedButton(
-                      onPressed: () => context.go('/esewascreen'),
-                      child: Text('paymentScreen'),
-                    ),
-                  ],
-                ),
-                ElevatedButton.icon(
-                  onPressed: () async {
-                    setState(() => _loading = true);
-                    final result = await ref
-                        .read(authRepositoryProvider)
-                        .signOut();
-                    if (!mounted) return;
-                    result.fold(
-                      (l) => ScaffoldMessenger.of(
-                        context,
-                      ).showSnackBar(SnackBar(content: Text(l.message))),
-                      (user) => context.go('/login'),
-                    );
-                  },
-                  label: Text('Logout'),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 20),
-                  child: Container(
-                    height: 60,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Color(0xFF868868),
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                    ),
-                    child: Text(
-                      "It is  gray color",
-                      style: TextStyle(
-                        fontSize: 19,
-                        fontWeight: FontWeight(600),
-                      ),
-                    ),
-                  ),
-                ),
-
-                SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 20),
-                  child: Container(
-                    height: 30,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 157, 37, 111),
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                    ),
-                    child: Text(
-                      "It is  pink color",
-                      style: TextStyle(
-                        fontSize: 19,
-                        fontWeight: FontWeight(600),
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 20),
-                  child: Container(
-                    height: 30,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 17, 174, 75),
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                    ),
-                    child: Text(
-                      "It is  green color",
-                      style: TextStyle(
-                        fontSize: 19,
-                        fontWeight: FontWeight(600),
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 20),
-                  child: Container(
-                    height: 30,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 17, 174, 75),
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                    ),
-                    child: Text(
-                      "It is  voilet color color",
-                      style: TextStyle(
-                        fontSize: 19,
-                        fontWeight: FontWeight(600),
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 20),
-                Row(
-                  children: [
-                    Expanded(
-                      flex: 3,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 20, right: 20),
-                        child: Container(
-                          height: 30,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 222, 230, 123),
-                            borderRadius: BorderRadius.all(Radius.circular(8)),
-                          ),
-                          child: Text(
-                            "It is  yellowish color",
-                            style: TextStyle(
-                              fontSize: 19,
-                              fontWeight: FontWeight(600),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 20),
-                  child: Container(
-                    height: 60,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 134, 142, 29),
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                    ),
-                    child: Text(
-                      "It is   gray color, I don't like greay color  i like blue and green color.",
-                      style: TextStyle(
-                        fontSize: 19,
-                        fontWeight: FontWeight(600),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            authState.when(
+              loading: () => const _WelcomeCard(
+                title: 'Welcome back',
+                subtitle: 'Loading your account…',
+              ),
+              error: (error, _) => _WelcomeCard(
+                title: 'Welcome back',
+                subtitle: 'Could not load account details ($error)',
+              ),
+              data: (user) => _WelcomeCard(
+                title: 'Welcome back',
+                subtitle: user?.displayName?.isNotEmpty == true
+                    ? '${user!.displayName} · ${user.email ?? ''}'
+                    : (user?.email ?? 'Signed in'),
+              ),
             ),
+            const SizedBox(height: 16),
+            _QuickAction(
+              icon: Icons.directions_car_outlined,
+              title: 'Browse vehicles',
+              subtitle: 'View the catalogue and start a booking',
+              onTap: () => context.go(AppRoute.products),
+            ),
+            const SizedBox(height: 20),
+            Text(
+              'KYC details',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            const SizedBox(height: 12),
+            Form(
+              key: _formKey,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              child: Column(
+                children: [
+                  KTextFormField(
+                    controller: _nameController,
+                    label: 'Full name',
+                    hintText: 'Enter your full name',
+                    prefixIcon: const Icon(Icons.person),
+                    textInputAction: TextInputAction.next,
+                  ),
+                  const SizedBox(height: 14),
+                  KTextFormField(
+                    controller: _addressController,
+                    label: 'Address',
+                    hintText: 'Enter your address',
+                    prefixIcon: const Icon(Icons.home_outlined),
+                    textInputAction: TextInputAction.next,
+                  ),
+                  const SizedBox(height: 14),
+                  KTextFormField(
+                    controller: _collegeController,
+                    label: 'College or university',
+                    hintText: 'Enter your institution',
+                    prefixIcon: const Icon(Icons.school_outlined),
+                    textInputAction: TextInputAction.done,
+                    onFieldSubmitted: (_) => _reviewDetails(),
+                    validator: (value) => (value == null || value.trim().isEmpty)
+                        ? 'Required'
+                        : null,
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton.icon(
+              onPressed: _reviewDetails,
+              icon: const Icon(Icons.badge_outlined),
+              label: const Text('Review KYC details'),
+            ),
+            const SizedBox(height: 12),
+            OutlinedButton.icon(
+              onPressed: _signingOut ? null : _signOut,
+              icon: _signingOut
+                  ? const SizedBox(
+                      height: 18,
+                      width: 18,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    )
+                  : const Icon(Icons.logout),
+              label: Text(_signingOut ? 'Signing out…' : 'Sign out'),
+            ),
+            const SizedBox(height: 16),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _WelcomeCard extends StatelessWidget {
+  const _WelcomeCard({required this.title, required this.subtitle});
+
+  final String title;
+  final String subtitle;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Container(
+      padding: const EdgeInsets.all(18),
+      decoration: BoxDecoration(
+        color: theme.colorScheme.primaryContainer,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(title, style: theme.textTheme.titleMedium),
+          const SizedBox(height: 4),
+          Text(subtitle, style: theme.textTheme.bodyMedium),
+        ],
+      ),
+    );
+  }
+}
+
+class _QuickAction extends StatelessWidget {
+  const _QuickAction({
+    required this.icon,
+    required this.title,
+    required this.subtitle,
+    required this.onTap,
+  });
+
+  final IconData icon;
+  final String title;
+  final String subtitle;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Theme.of(context).colorScheme.surfaceContainerHighest,
+      borderRadius: BorderRadius.circular(12),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(12),
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            children: [
+              Icon(icon, size: 32),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const SizedBox(height: 2),
+                    Text(subtitle, style: Theme.of(context).textTheme.bodySmall),
+                  ],
+                ),
+              ),
+              const Icon(Icons.chevron_right),
+            ],
           ),
         ),
       ),
@@ -306,41 +255,42 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   }
 }
 
-class kTextFormField extends StatelessWidget {
-  const kTextFormField({
+/// Labeled text field used by the KYC form.
+class KTextFormField extends StatelessWidget {
+  const KTextFormField({
     super.key,
-    required TextEditingController emailTextEditingController,
+    required this.controller,
+    required this.label,
     required this.hintText,
     required this.prefixIcon,
-    required this.label,
-  }) : _emailTextEditingController = emailTextEditingController;
+    this.validator,
+    this.textInputAction = TextInputAction.next,
+    this.onFieldSubmitted,
+  });
 
-  final TextEditingController _emailTextEditingController;
+  final TextEditingController controller;
   final String label;
   final String hintText;
   final Icon prefixIcon;
+  final String? Function(String?)? validator;
+  final TextInputAction textInputAction;
+  final ValueChanged<String>? onFieldSubmitted;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: _emailTextEditingController,
-      onSaved: (newvalue) {
-        print("New value is $newvalue");
-      },
+      controller: controller,
+      textInputAction: textInputAction,
+      onFieldSubmitted: onFieldSubmitted,
       decoration: InputDecoration(
-        label: Text(label),
-        hintText: '',
+        labelText: label,
+        hintText: hintText,
         prefixIcon: prefixIcon,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
       ),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return "please enter your email that must be valid";
-        } else if (value.contains("@gmail.com")) {
-          return 'Enter you correct email, with corrent standard';
-        }
-        return null;
-      },
+      validator:
+          validator ??
+          (value) => (value == null || value.trim().isEmpty) ? 'Required' : null,
     );
   }
 }

@@ -6,39 +6,45 @@ import 'package:flutter_practice/features/products/data/datasources/product_remo
 import 'package:flutter_practice/features/products/domain/entities/product_entity.dart';
 import 'package:flutter_practice/features/products/domain/repositories/product_repository.dart';
 
+/// Cache-first repository: fetch remotely, persist locally, and fall back to
+/// the local cache whenever the network is unavailable.
 class ProductRepositoryImpl implements ProductRepository {
-  final ProductRemoteDatasource _remoteDataSource;
+  ProductRepositoryImpl(this._remoteDatasource, this._localDatasource);
+
+  final ProductRemoteDatasource _remoteDatasource;
   final ProductLocalDatasource _localDatasource;
-  ProductRepositoryImpl(this._remoteDataSource, this._localDatasource);
+
   @override
   Future<Either<Failures, List<ProductEntity>>> getProducts() async {
     try {
-      final products = await _remoteDataSource.fetchProducts();
-      await _localDatasource.cacheProducts(products); // save local data freshly
+      final products = await _remoteDatasource.fetchProducts();
+      await _localDatasource.cacheProducts(products);
       return Right(products);
-    } on DioException catch (_) {
-      // network failed -fall back to cache instead of showing an error
-      final cached = await _localDatasource.getCachedProducts();
-      if (cached.isNotEmpty) {
-        return Right(cached);
+    } on DioException catch (e) {
+      // Network problem: serve the cache instead of an error when we have one.
+      try {
+        final cached = await _localDatasource.getCachedProducts();
+        if (cached.isNotEmpty) {
+          return Right(cached);
+        }
+      } catch (_) {
+        // Fall through to the network failure below.
       }
-      return left(ServerFailure('No internet and no cached data available'));
-      // return Left(ServerFailure(_mapDioError(e)));
-    } catch (e) {
-      // print('PRODUCT ERROR: $e'); // temporary debug
-      // print('STACK: $stackTrace');
-      return left(ServerFailure('Unexpencted error occured'));
+      return Left(ServerFailure(_networkMessage(e)));
+    } catch (_) {
+      // Unexpected parsing/programming error - never leak stack traces to UI.
+      return const Left(ServerFailure('Something went wrong loading vehicles.'));
     }
   }
-  // @override
-  // Future<Either<Failures,List<ProductEntity>>> deleteProducts()async{
-    
-  // }
 
-  // String _mapDioError(DioException e) => switch (e.type) {
-  //   DioExceptionType.connectionTimeout => 'Connection timed out',
-  //   DioExceptionType.receiveTimeout => 'Server took too long to response',
-  //   DioExceptionType.badResponse => 'server error: ${e.response?.statusCode}',
-  //   _ => 'Network Error. Check Your connection',
-  // };
+  static String _networkMessage(DioException e) => switch (e.type) {
+    DioExceptionType.connectionTimeout =>
+      'Connection timed out. Check your network.',
+    DioExceptionType.connectionError => 'No internet connection.',
+    DioExceptionType.receiveTimeout => 'The server took too long to respond.',
+    DioExceptionType.badResponse =>
+      'Server error (HTTP ${e.response?.statusCode}).',
+    DioExceptionType.cancel => 'Request cancelled.',
+    _ => 'Network error. Check your connection.',
+  };
 }
