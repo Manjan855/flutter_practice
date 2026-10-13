@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -23,12 +24,22 @@ Future<void> main(List<String> args) async {
   stdout.writeln('Press Ctrl+C to stop.');
 
   await for (final request in server) {
+    // Dispatch without awaiting: `await for` would serialise every request,
+    // letting a single slow client stall all the others.
+    unawaited(_serve(request));
+  }
+}
+
+Future<void> _serve(HttpRequest request) async {
+  try {
+    await _handle(request);
+  } catch (e) {
     try {
-      await _handle(request);
-    } catch (e) {
       request.response.statusCode = HttpStatus.internalServerError;
       _writeJson(request.response, {'error': '$e'});
       await request.response.close();
+    } catch (_) {
+      // The socket is already gone; nothing left to report.
     }
   }
 }
