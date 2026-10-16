@@ -15,6 +15,11 @@ class ProductListScreen extends ConsumerWidget {
     ref.invalidate(productListProvider);
     await ref.read(productListProvider.future);
   }
+  //practice
+  Future<void> _loading(WidgetRef ref) async{
+    ref.invalidate(productListProvider);
+    await ref.read(productListProvider);
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
