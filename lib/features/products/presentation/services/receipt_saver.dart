@@ -22,6 +22,26 @@ class ReceiptSaver {
       transactionId: transactionId,
       paidAt: paidAt,
     );
+    final dir = await getApplicationCacheDirectory();
+    final file = File(
+      '${dir.path}/receipt_${vehicle.id}_${DateTime.now().millisecondsSinceEpoch}.pdf',
+    );
+    await file.writeAsBytes(await doc.save());
+    return file;
+  }
+
+  static Future<File> saveReceipt(
+    ProductEntity vehicle, {
+    String paymentMethod = 'Pending',
+    String? transactionId,
+    DateTime? paidAt,
+  }) async {
+    final doc = await ReceiptGenerator.generate(
+      vehicle,
+      paymentMethod: paymentMethod,
+      transactionId: transactionId,
+      paidAt: paidAt,
+    );
 
     final dir = await getApplicationCacheDirectory();
     final file = File(
