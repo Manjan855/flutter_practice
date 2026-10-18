@@ -115,9 +115,9 @@ class ReceiptGenerator {
         '${two(value.hour)}:${two(value.minute)}';
   }
   //practice
-  // static String _unformat(DateTime value){
-  //   String two(int n)=>n.toString().padLeft(2, '0');
-  //   return '${value.year}-${two(value.month)}-${two(value.day)}'
-  //   '${two(value.hour)}:${two(value.minute)}';
-  // }
+  static String _unformat(DateTime value){
+    String two(int n)=>n.toString().padLeft(2, '0');
+    return '${value.year}-${two(value.month)}-${two(value.day)}'
+    '${two(value.hour)}:${two(value.minute)}';
+  }
 }
