@@ -30,7 +30,29 @@ class ReceiptSaver {
     return file;
   }
 
-  static Future<File> saveReceipt(
+  // static Future<File> saveReceipt(
+  //   ProductEntity vehicle, {
+  //   String paymentMethod = 'Pending',
+  //   String? transactionId,
+  //   DateTime? paidAt,
+  // }) async {
+  //   final doc = await ReceiptGenerator.generate(
+  //     vehicle,
+  //     paymentMethod: paymentMethod,
+  //     transactionId: transactionId,
+  //     paidAt: paidAt,
+  //   );
+
+  //   final dir = await getApplicationCacheDirectory();
+  //   final file = File(
+  //     '${dir.path}/receipt_${vehicle.id}_${DateTime.now().millisecondsSinceEpoch}.pdf',
+  //   );
+  //   await file.writeAsBytes(await doc.save());
+  //   return file;
+  // }
+
+  /// Opens the platform print/share sheet so the receipt can be saved or sent.
+  static Future<bool> openReceipt(
     ProductEntity vehicle, {
     String paymentMethod = 'Pending',
     String? transactionId,
@@ -42,17 +64,14 @@ class ReceiptSaver {
       transactionId: transactionId,
       paidAt: paidAt,
     );
+    final bytes = await doc.save();
 
-    final dir = await getApplicationCacheDirectory();
-    final file = File(
-      '${dir.path}/receipt_${vehicle.id}_${DateTime.now().millisecondsSinceEpoch}.pdf',
-    );
-    await file.writeAsBytes(await doc.save());
-    return file;
+    if (!await Printing.layoutPdf(onLayout: (_) async => bytes)) {
+      return false;
+    }
+    return true;
   }
-
-  /// Opens the platform print/share sheet so the receipt can be saved or sent.
-  static Future<bool> openReceipt(
+   static Future<bool> openReceipt(
     ProductEntity vehicle, {
     String paymentMethod = 'Pending',
     String? transactionId,
