@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter_practice/features/products/domain/entities/product_entity.dart';
 import 'package:flutter_practice/features/products/presentation/services/receipt_generator.dart';
 import 'package:path_provider/path_provider.dart';
