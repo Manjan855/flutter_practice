@@ -112,24 +112,5 @@ class ReceiptSaver {
     );
     return file.path;
   }
-  static Future<String> saveAndPreview(
-    ProductEntity vehicle, {
-    required String paymentMethod,
-    String? transactionId,
-    DateTime? paidAt,
-  }) async {
-    final file = await saveReceipt(
-      vehicle,
-      paymentMethod: paymentMethod,
-      transactionId: transactionId,
-      paidAt: paidAt,
-    );
-    await openReceipt(
-      vehicle,
-      paymentMethod: paymentMethod,
-      transactionId: transactionId,
-      paidAt: paidAt,
-    );
-    return file.path;
-  }
+
 }
