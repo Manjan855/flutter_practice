@@ -226,6 +226,13 @@ class _EsewaPaymentScreenState extends State<EsewaPaymentScreen> {
             style: theme.textTheme.bodySmall,
             textAlign: TextAlign.center,
           ),
+          //  Text(
+          //   AppConfig.esewaUseDevMode
+          //       ? 'Running against the eSewa RC/test gateway.'
+          //       : 'Running against the eSewa production gateway.',
+          //   style: theme.textTheme.bodySmall,
+          //   textAlign: TextAlign.center,
+          // ),
         ],
       ),
     );
