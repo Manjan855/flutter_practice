@@ -114,5 +114,11 @@ class ReceiptGenerator {
     return '${value.year}-${two(value.month)}-${two(value.day)} '
         '${two(value.hour)}:${two(value.minute)}';
   }
+  // just understand it dublicate
+   static String _format(DateTime value) {
+    String two(int n) => n.toString().padLeft(2, '0');
+    return '${value.year}-${two(value.month)}-${two(value.day)} '
+        '${two(value.hour)}:${two(value.minute)}';
+  }
   
 }
