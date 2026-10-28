@@ -27,24 +27,6 @@ class ProductRemoteDatasource {
         .whereType<ProductModel>()
         .toList();
   }
-  //practice
-  // Future<List<ProductModel>> unFetchProducts() async {
-  //   final response = await _dio.get(_vehiclesPath);
-
-  //   final data = response.data;
-  //   // Accept both `{"products": [...]}` and a bare JSON array so the client
-  //   // survives a backend that changes its envelope shape.
-  //   final List<dynamic> productsJson = switch (data) {
-  //     List<dynamic>() => data,
-  //     Map<String, dynamic>() when data['products'] is List => data['products'],
-  //     Map<String, dynamic>() when data['data'] is List => data['data'],
-  //     _ => const <dynamic>[],
-  //   };
-
-  //   return productsJson
-  //       .map(ProductModel.tryFromJson)
-  //       .whereType<ProductModel>()
-  //       .toList();
-  // }
+ 
 
 }
