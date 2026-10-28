@@ -40,9 +40,6 @@ class ProductLocalDatasource {
     final db = await AppDatabase.instance;
     await db.delete(table);
   }
-  //practice
-   Future<void> clear() async {
-    final db = await AppDatabase.instance;
-    await db.delete(table);
-  }
+ 
+  
 }
