@@ -7,7 +7,7 @@ class AuthLocalDataSource {
     await _storage.write(key: 'refresh', value: refresh);
   }
 
-  // Future<String?> get accessToken => _storage.read(key: 'access');
-  // Future<String?> get refreshToken => _storage.read(key: 'refresh');
-  // Future<void> clear() => _storage.deleteAll();
+  Future<String?> get accessToken => _storage.read(key: 'access');
+  Future<String?> get refreshToken => _storage.read(key: 'refresh');
+  Future<void> clear() => _storage.deleteAll();
 }
