@@ -52,6 +52,7 @@ dependencies:
   path_provider: ^2.1.6
   khalti_checkout_flutter: ^1.0.0
   esewa_flutter: ^3.0.1
+  flutter_secure_storage: ^10.3.4
  
 
 dev_dependencies:
