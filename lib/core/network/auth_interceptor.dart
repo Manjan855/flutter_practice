@@ -12,4 +12,16 @@ class AuthInterceptor extends Interceptor{
     if(token !=null) options.headers['Authorization'] = 'Beare $token';
     handler.next(options);
   }
+  
+  @override 
+  Future<void> onError(DioException err, ErrorInterceptorHandler handler)async{
+    final path = err.requestOptions.path;
+    final alreadyRetired = err.requestOptions.extra['retired'] == true;
+    final isAuthEndpoint = path  == '/auth/login' || path == '/auth/refresh';
+    
+    // Adjust this condition if your curl test showed a different status for expired tokens
+    if (err.response?.statusCode != 401 || alreadyRetried || isAuthEndpoint) {
+      return handler.next(err);
+    } 
+     }
 }
