@@ -23,5 +23,7 @@ class AuthInterceptor extends Interceptor{
     if (err.response?.statusCode != 401 || alreadyRetried || isAuthEndpoint) {
       return handler.next(err);
     } 
+     final refreshToken = await _tokenStorage.refreshToken;
+    if (refreshToken == null) return handler.next(err)
      }
 }
