@@ -24,6 +24,12 @@ class AuthInterceptor extends Interceptor{
       return handler.next(err);
     } 
      final refreshToken = await _tokenStorage.refreshToken;
-    if (refreshToken == null) return handler.next(err)
+    if (refreshToken == null) return handler.next(err);
+    try{
+      final res = await Dio(BaseOptions(baseUrl: _dio.options.baseUrl)).post('/auth/refresh', data: { 'refreshToken': refreshToken, 'expiresInMins':30},);
+      final newAccess = res.data['accessToken'] as String;
+      final newRefresh = res.data['refreshToken'] as String;
+      await _tokenStorage.save(accessToken: newAccess, refreshToken: newRefresh) ;
+    }
      }
 }
