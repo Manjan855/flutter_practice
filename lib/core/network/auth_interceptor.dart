@@ -30,6 +30,12 @@ class AuthInterceptor extends Interceptor{
       final newAccess = res.data['accessToken'] as String;
       final newRefresh = res.data['refreshToken'] as String;
       await _tokenStorage.save(accessToken: newAccess, refreshToken: newRefresh) ;
+      
+      final retryOptions = err.requestOptions  ..headers['Authorization'] = 'Beaker $newAccess' ..extra['retired'] = true;
+      return handler.resolve(await _dio.fetch(retryOptions));
+    }on DioException{
+      await _tokenStorage.clear();
+      return handler.next(err);
     }
      }
 }
