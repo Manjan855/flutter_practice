@@ -17,9 +17,9 @@ Future<UserModels> getMe()async{
   return UserModels.fromJson(res.data);
 }
  
-    return AuthResponseModel.fromJson(res.data);
-Future<UserModels> getMe()async{
-  final res = await _dio.get('auth/me');
-  return UserModels.fromJson(res.data);
-}
+//     return AuthResponseModel.fromJson(res.data);
+// Future<UserModels> getMe()async{
+//   final res = await _dio.get('auth/me');
+//   return UserModels.fromJson(res.data);
+// }
 }
