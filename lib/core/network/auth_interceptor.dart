@@ -20,7 +20,7 @@ class AuthInterceptor extends Interceptor{
     final isAuthEndpoint = path  == '/auth/login' || path == '/auth/refresh';
     
     // Adjust this condition if your curl test showed a different status for expired tokens
-    if (err.response?.statusCode != 401 || alreadyRetried || isAuthEndpoint) {
+    if (err.response?.statusCode != 401 || alreadyRetired || isAuthEndpoint) {
       return handler.next(err);
     } 
      final refreshToken = await _tokenStorage.refreshToken;
