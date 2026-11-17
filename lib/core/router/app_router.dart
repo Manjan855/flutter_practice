@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_practice/features/auth/presentation/providers/auth_providers.dart';
 import 'package:flutter_practice/features/auth/presentation/screens/login_screen.dart';
 import 'package:flutter_practice/features/auth/presentation/screens/sign_up_screen.dart';
+import 'package:flutter_practice/features/dummy_auth/presentation/screens/dummy_login_screen.dart';
+import 'package:flutter_practice/features/dummy_auth/presentation/screens/dummy_profile_screen.dart';
 import 'package:flutter_practice/features/products/domain/entities/product_entity.dart';
 import 'package:flutter_practice/features/products/presentation/screens/esewa_payment_screen.dart';
 import 'package:flutter_practice/features/products/presentation/screens/payment_screen.dart';
@@ -111,6 +113,14 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           }
           return EsewaPaymentScreen(vehicle: vehicle);
         },
+      ),
+      GoRoute(
+        path: '/dummy-login',
+        builder: (c, s) => const DummyLoginScreen(),
+      ),
+      GoRoute(
+        path: '/dummy-profile',
+        builder: (c, s) => const DummyProfileScreen(),
       ),
     ],
   );

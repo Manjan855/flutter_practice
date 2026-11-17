@@ -113,10 +113,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               onTap: () => context.go(AppRoute.products),
             ),
             const SizedBox(height: 20),
-            Text(
-              'KYC details',
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
+            Text('KYC details', style: Theme.of(context).textTheme.titleLarge),
             const SizedBox(height: 12),
             Form(
               key: _formKey,
@@ -146,7 +143,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     prefixIcon: const Icon(Icons.school_outlined),
                     textInputAction: TextInputAction.done,
                     onFieldSubmitted: (_) => _reviewDetails(),
-                    validator: (value) => (value == null || value.trim().isEmpty)
+                    validator: (value) =>
+                        (value == null || value.trim().isEmpty)
                         ? 'Required'
                         : null,
                   ),
@@ -160,6 +158,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               label: const Text('Review KYC details'),
             ),
             const SizedBox(height: 12),
+            ElevatedButton(
+              onPressed: () => context.go('/dummy-login'),
+              child: const Text('DummyJSON Auth Practice'),
+            ),
             OutlinedButton.icon(
               onPressed: _signingOut ? null : _signOut,
               icon: _signingOut
@@ -237,12 +239,12 @@ class _QuickAction extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      title,
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
+                    Text(title, style: Theme.of(context).textTheme.titleMedium),
                     const SizedBox(height: 2),
-                    Text(subtitle, style: Theme.of(context).textTheme.bodySmall),
+                    Text(
+                      subtitle,
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
                   ],
                 ),
               ),
@@ -290,7 +292,8 @@ class KTextFormField extends StatelessWidget {
       ),
       validator:
           validator ??
-          (value) => (value == null || value.trim().isEmpty) ? 'Required' : null,
+          (value) =>
+              (value == null || value.trim().isEmpty) ? 'Required' : null,
     );
   }
 }
