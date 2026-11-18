@@ -162,6 +162,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               onPressed: () => context.go('/dummy-login'),
               child: const Text('DummyJSON Auth Practice'),
             ),
+            ElevatedButton(
+              onPressed: () => context.go('/dummy-profile'),
+              child: const Text('DummyJSON Profile (skip login)'),
+            ),
             OutlinedButton.icon(
               onPressed: _signingOut ? null : _signOut,
               icon: _signingOut

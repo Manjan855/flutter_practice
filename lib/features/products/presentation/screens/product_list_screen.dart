@@ -15,7 +15,6 @@ class ProductListScreen extends ConsumerWidget {
     ref.invalidate(productListProvider);
     await ref.read(productListProvider.future);
   }
-  
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -25,6 +24,16 @@ class ProductListScreen extends ConsumerWidget {
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Vehicles'),
+        leading: IconButton(
+          icon: const Icon(Icons.back_hand_sharp),
+          onPressed: () {
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              '/home',
+              (route) => false,
+            );
+          },
+        ),
         actions: [
           IconButton(
             tooltip: 'Refresh',
@@ -63,10 +72,8 @@ class ProductListScreen extends ConsumerWidget {
                         title: Text(product.title),
                         subtitle: Text('\$${product.price.toStringAsFixed(2)}'),
                         trailing: const Icon(Icons.chevron_right),
-                        onTap: () => context.push(
-                          AppRoute.payment,
-                          extra: product,
-                        ),
+                        onTap: () =>
+                            context.push(AppRoute.payment, extra: product),
                       );
                     },
                   ),

@@ -8,7 +8,7 @@ class DummyAuthRemoteDataSource {
   Future<Map<String, dynamic>> login(String username, String password) async {
     final res = await _dio.post(
       '/auth/login',
-      data: {'username': username, 'password': password, 'expiresInMins': 30},
+      data: {'username': username, 'password': password, 'expiresInMins': 1},
     );
     return res.data as Map<String, dynamic>;
   }

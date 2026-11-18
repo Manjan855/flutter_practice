@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_practice/core/config/app_config.dart';
 
 /// Builds [Dio] clients for the app's outbound HTTP traffic.
@@ -43,8 +44,10 @@ class DioClient {
   static void _addLoggingIfEnabled(Dio dio) {
     // Response bodies are logged verbatim - only enable this outside of
     // release builds (see `ENABLE_HTTP_LOGGING` in .env.example).
-    if (AppConfig.enableHttpLogging) {
-      dio.interceptors.add(LogInterceptor(responseBody: true));
+    if 
+    // (AppConfig.enableHttpLogging)
+    (kDebugMode) {
+      dio.interceptors.add(LogInterceptor(responseBody: true, requestBody: true));
     }
   }
 }
