@@ -53,7 +53,7 @@ class DummyAuthRepositoryImpl implements DummyAuthRepository {
   String _serverMessage(DioException e, String fallback) {
     final data = e.response?.data;
     if (data is Map && data['message'] is String)
-      return data['message'] as String;
+     { return data['message'] as String;}
     return fallback;
   }
 }

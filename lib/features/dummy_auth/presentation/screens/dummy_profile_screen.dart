@@ -1,5 +1,6 @@
 // dummy_profile_screen.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_practice/features/dummy_auth/presentation/providers/dummy_auth_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -36,7 +37,7 @@ class DummyProfileScreen extends ConsumerWidget {
                   Image.network(
                     u.image,
                     width: 100,
-                    errorBuilder: (_, __, ___) =>
+                    errorBuilder: (_, _, _) =>
                         const Icon(Icons.person, size: 100),
                   ),
                 Text(
