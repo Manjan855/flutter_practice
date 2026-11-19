@@ -1,4 +1,4 @@
-// dummy_profile_screen.dart
+
 import 'package:flutter/material.dart';
 import 'package:flutter_practice/features/dummy_auth/presentation/providers/dummy_auth_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

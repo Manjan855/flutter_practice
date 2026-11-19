@@ -1,4 +1,4 @@
-// entities/dummy_user_entity.dart
+
 class DummyUserEntity {
   final int id;
   final String username;
