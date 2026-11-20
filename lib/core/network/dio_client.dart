@@ -22,6 +22,19 @@ class DioClient {
     _addLoggingIfEnabled(dio);
     return dio;
   }
+  //new api practice
+  static Dio put() {
+    final dio = Dio(
+      BaseOptions(
+        baseUrl: AppConfig.apiBaseUrl,
+        connectTimeout: const Duration(seconds: 30),
+        receiveTimeout: const Duration(seconds: 30),
+        headers: const {'Accept': 'application/json'},
+      ),
+    );
+    _addLoggingIfEnabled(dio);
+    return dio;
+  }
 
   /// Client for Khalti's ePayment API (`POST /payment/initialize`).
   static Dio createKhalti() {
