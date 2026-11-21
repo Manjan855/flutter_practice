@@ -23,6 +23,16 @@ class DioClient {
     return dio;
   }
   //new api practice
+  static Dio get(){
+    final dio = Dio(
+      BaseOptions(
+baseUrl:AppConfig.apiBaseUrl,
+
+      ));
+      _addLoggingIfEnabled(dio);
+      return dio;
+    }
+  }
   static Dio put() {
     final dio = Dio(
       BaseOptions(
