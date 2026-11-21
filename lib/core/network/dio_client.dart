@@ -22,17 +22,18 @@ class DioClient {
     _addLoggingIfEnabled(dio);
     return dio;
   }
+
   //new api practice
   static Dio get(){
     final dio = Dio(
       BaseOptions(
-baseUrl:AppConfig.apiBaseUrl,
+             baseUrl:AppConfig.apiBaseUrl,
 
       ));
       _addLoggingIfEnabled(dio);
       return dio;
     }
-  }
+  
   static Dio put() {
     final dio = Dio(
       BaseOptions(
@@ -63,23 +64,7 @@ baseUrl:AppConfig.apiBaseUrl,
     _addLoggingIfEnabled(dio);
     return dio;
   }
-  //practice Creating dio means outbound the traffic http
-   static Dio Esewa() {
-    final dio = Dio(
-      BaseOptions(
-        baseUrl: AppConfig.khaltiBaseUrl,
-        connectTimeout: const Duration(seconds: 30),
-        receiveTimeout: const Duration(seconds: 30),
-        headers: <String, dynamic>{
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Authorization': 'Key ${AppConfig.khaltiPublicKey}',
-        },
-      ),
-    );
-    _addLoggingIfEnabled(dio);
-    return dio;
-  }
+  
 
   static void _addLoggingIfEnabled(Dio dio) {
     // Response bodies are logged verbatim - only enable this outside of
