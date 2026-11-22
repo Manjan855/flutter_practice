@@ -14,19 +14,19 @@ class AuthInterceptor extends Interceptor {
     return status == 401 || message.contains('token');
   }
 
- @override
-  Future<void> onRequest(
-    RequestOptions options,
-    RequestInterceptorHandler handler,
-  ) async {
-    final isAuthEndpoint =
-        options.path == '/auth/login' || options.path == '/auth/refresh';
-    if (!isAuthEndpoint) {
-      final token = await _tokenStorage.accessToken;
-      if (token != null) options.headers['Authorization'] = 'Bearer $token';
-    }
-    handler.next(options);
-  }
+//  @override
+//   Future<void> onRequest(
+//     RequestOptions options,
+//     RequestInterceptorHandler handler,
+//   ) async {
+//     final isAuthEndpoint =
+//         options.path == '/auth/login' || options.path == '/auth/refresh';
+//     if (!isAuthEndpoint) {
+//       final token = await _tokenStorage.accessToken;
+//       if (token != null) options.headers['Authorization'] = 'Bearer $token';
+//     }
+//     handler.next(options);
+//   }
 
   @override
   Future<void> onError(
