@@ -19,6 +19,19 @@ class AuthInterceptor extends Interceptor {
     final message = data is Map && data['message'] is String ? (data['message']as String).toLowerCase(): '';
     return status == 401  || message.contains('token');
   }
+  @override
+  Future<void> onRequest(
+    RequestOptions options,
+    RequestInterceptorHandler handler,
+
+  )async{
+    final isAuthEndpoint = options.path == '/auth/login' || options.path == '/auth/refresh';
+    if(!isAuthEndpoint){
+      final token =await _tokenStorage.accessToken;
+      if(token !=null ) options.headers['authorization'] = 'Bearer $token';
+    }
+    handler.next(options);
+  }
 
 //  @override
 //   Future<void> onRequest(

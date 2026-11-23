@@ -66,13 +66,13 @@ class DioClient {
   }
   
 
-  // static void _addLoggingIfEnabled(Dio dio) {
-  //   // Response bodies are logged verbatim - only enable this outside of
-  //   // release builds (see `ENABLE_HTTP_LOGGING` in .env.example).
-  //   if 
-  //   // (AppConfig.enableHttpLogging)
-  //   (kDebugMode) {
-  //     dio.interceptors.add(LogInterceptor(responseBody: true, requestBody: true));
-  //   }
-  // }
+  static void _addLoggingIfEnabled(Dio dio) {
+    // Response bodies are logged verbatim - only enable this outside of
+    // release builds (see `ENABLE_HTTP_LOGGING` in .env.example).
+    if 
+    // (AppConfig.enableHttpLogging)
+    (kDebugMode) {
+      dio.interceptors.add(LogInterceptor(responseBody: true, requestBody: true));
+    }
+  }
 }
