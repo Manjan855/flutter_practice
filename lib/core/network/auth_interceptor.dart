@@ -13,6 +13,12 @@ class AuthInterceptor extends Interceptor {
         : '';
     return status == 401 || message.contains('token');
   }
+  bool _isTokenError (DioException err){
+    final status  = err.response?.statusCode;
+    final data = err.response?.data;
+    final message = data is Map && data['message'] is String ? (data['message']as String).toLowerCase(): '';
+    return status == 401  || message.contains('token');
+  }
 
 //  @override
 //   Future<void> onRequest(
